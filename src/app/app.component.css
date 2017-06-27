@@ -10,7 +10,7 @@
     height: auto;
     width: auto;
     padding: 0px;
-    
+
 }
 .logocontainer{
     max-height: 150px;
@@ -20,7 +20,7 @@
 .sidecolor{
 	height: 100%;
 	width: 15px;
-	background-image:url(../assets/sidestripe.png);	
+	background-image:url(../assets/sidestripe.png);
 	position: fixed;
 	left: 0;
 	top: 0;
