@@ -11,6 +11,7 @@ import { RouterModule }   from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { StartComponent } from './start/start.component';
 import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,7 @@ import { HomeComponent } from './home/home.component';
 		},
 	]),
   ],
-  declarations: [ AppComponent, TravelBookComponent, AboutComponent, StartComponent, HomeComponent ],
+  declarations: [ AppComponent, TravelBookComponent, AboutComponent, StartComponent, HomeComponent, HeaderComponent ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {}
