@@ -6,6 +6,8 @@ import { AboutComponent } from './about/about.component';
 import { StartComponent } from './start/start.component';
 import { TravelBookComponent } from './travel-book/travel-book.component';
 
+import { LoginComponent } from './login/login.component';
+
 const routes = [{
 	path: 'home',
 	component: HomeComponent
@@ -18,14 +20,17 @@ const routes = [{
 }, {
 	path: 'travel-book',
 	component: TravelBookComponent
-},{
+}, {
+	path: 'login',
+	component: LoginComponent
+}, {
 	path: '',
 	redirectTo: '/home',
 	pathMatch: 'full'
 }];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+	imports: [ RouterModule.forRoot(routes) ],
+	exports: [ RouterModule ]
 })
 export class AppRoutingModule {}
