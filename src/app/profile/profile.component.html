@@ -1,3 +1,106 @@
-<p>
-  profile works!
-</p>
+<br /><br /><br /><br /><br /><br />
+
+<div *ngIf="auth.user">
+
+<div class="row">
+	<div class="col-5">
+		<img [src]="auth?.user.photoUrl" alt="Display Photo" class="img-thumbnail rounded">
+	</div>
+	<div class="col-7">
+		<div class="row">
+			<div class="col-10">
+				<h1>{{auth?.user.name}}</h1>
+			</div>
+			<div class="col-2">
+				<div *ngIf="edit">
+					<button (click)="toggleEdit()" class="btn btn-outline-primary">
+						View
+					</button>
+				</div>
+				<div *ngIf="!edit">
+					<button (click)="toggleEdit()" class="btn btn-outline-primary">
+						Edit
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<br />
+		Bio:
+		<br />
+
+		<div *ngIf="!edit">
+			<p>{{auth?.user.bio}}</p>
+		</div>
+		<div *ngIf="edit">
+			<textarea cols="30" rows="10" class="form-control" [(ngModel)]="auth?.user.bio" (onblur)="saveUser()">
+			</textarea>
+		</div>
+
+		Website:
+
+		<div *ngIf="!edit">
+			<a [href]="auth?.user.website" target="_blank">
+				{{auth?.user.website}}
+			</a>
+		</div>
+		<div *ngIf="edit">
+			<input type="text" class="form-control" [(ngModel)]="auth?.user.website" (onblur)="saveUser()">
+		</div>
+
+	</div>
+</div>
+
+<br />
+
+<ul class="nav nav-pills nav-justified">
+	<li class="nav-item">
+		<a class="nav-link" [class.active]="isActive" (click)="setActive(true)">Pathway Teams</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" [class.active]="!isActive" (click)="setActive(false)">Created Resources</a>
+	</li>
+</ul>
+
+<br />
+
+<div class="tab-content">
+	<div class="tab-pane" id="teams" role="tabpanel" [class.active]="isActive">
+			<h3>Pathway Teams</h3>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Team Name</th>
+						<th>FIRST Branch</th>
+						<th>School</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let team of auth.user.pathwayTeams">
+						<th>{{team.name}}</th>
+						<th>{{team.branch}}</th>
+						<th>{{team.school}}</th>
+					</tr>
+					<tr>
+						<th>
+							<input type="text" class="form-control" [(ngModel)]="team.name" (keyup.enter)="addTeam()">
+						</th>
+						<th>
+							<input type="text" class="form-control" [(ngModel)]="team.branch" (keyup.enter)="addTeam()">
+						</th>
+						<th>
+							<input type="text" class="form-control" [(ngModel)]="team.school" (keyup.enter)="addTeam()">
+						</th>
+					</tr>
+				</tbody>
+			</table>
+		<div *ngIf="edit">
+
+		</div>
+	</div>
+	<div class="tab-pane" id="resources" role="tabpanel" [class.active]="!isActive">
+		<h3>Created Resources</h3>
+	</div>
+</div>
+
+</div>

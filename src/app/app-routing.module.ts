@@ -8,6 +8,8 @@ import { TravelBookComponent } from './travel-book/travel-book.component';
 
 import { LoginComponent } from './login/login.component';
 
+import { ProfileComponent } from './profile/profile.component';
+
 const routes = [{
 	path: 'home',
 	component: HomeComponent
@@ -23,6 +25,9 @@ const routes = [{
 }, {
 	path: 'login',
 	component: LoginComponent
+}, {
+	path: 'profile',
+	component: ProfileComponent
 }, {
 	path: '',
 	redirectTo: '/home',
