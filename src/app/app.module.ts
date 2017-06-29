@@ -1,23 +1,4 @@
 import { NgModule } from '@angular/core';
-<<<<<<< HEAD
-import { AppComponent } from './app.component';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { environment } from '../environments/environment';
-
-@NgModule({
-  imports: [
-    BrowserModule,
-    AngularFireModule.initializeApp(environment.firebase, 'my-app-name'), // imports firebase/app needed for everything
-    AngularFireDatabaseModule, // imports firebase/database, only needed for database features
-    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
-  ],
-  declarations: [ AppComponent ],
-  bootstrap: [ AppComponent ]
-})
-export class AppModule {}
-=======
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
@@ -34,6 +15,7 @@ import { StartComponent } from './start/start.component';
 import { TravelBookComponent } from './travel-book/travel-book.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
+import {SignUpComponent} from './signup/signup.component'
 
 import { AuthService } from './auth-service/auth.service';
 
@@ -55,10 +37,10 @@ import { AuthService } from './auth-service/auth.service';
 		HomeComponent,
 		HeaderComponent,
 		ProfileComponent,
-		LoginComponent
+		LoginComponent,
+		SignUpComponent
 	],
 	bootstrap: [ AppComponent ],
 	providers: [AuthService]
 })
 export class AppModule {}
->>>>>>> 0a3ff1469286bf2e94d452570fa13453d77b6c10

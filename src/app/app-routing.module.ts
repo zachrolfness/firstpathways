@@ -10,6 +10,8 @@ import { LoginComponent } from './login/login.component';
 
 import { ProfileComponent } from './profile/profile.component';
 
+import {SignUpComponent} from './signup/signup.component'
+
 const routes = [{
 	path: 'home',
 	component: HomeComponent
@@ -28,6 +30,9 @@ const routes = [{
 }, {
 	path: 'profile',
 	component: ProfileComponent
+}, {
+	path: 'signup',
+	component: SignUpComponent
 }, {
 	path: '',
 	redirectTo: '/home',
