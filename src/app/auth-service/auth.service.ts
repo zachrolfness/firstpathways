@@ -40,35 +40,30 @@ export class AuthService {
 				this.isLoggedIn = false;
 				this.user = null;
 			}
-			console.log(this.isLoggedIn);
-			console.log(this.user);
+			// console.log(this.isLoggedIn);
+			// console.log(this.user);
 		});
 	}
 
 	public login(email: string, password: string) {
 		this.afAuth.auth.signInWithEmailAndPassword(email, password)
 			.then((user) => {
-				console.log('Logged in as ' + user.email);
+				// console.log('Logged in as ' + user.email);
 			});
 	}
 
-	public loginGoogle() {
-		this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-			// .then((auth) => {
-			// 	let user = this.db.object(`Users/${auth.email}`);
-			// 	user.subscribe(data => {
-			// 		if(data.$value !== null) {
-			// 			console.log('User does not exist');
-			// 			this.db.list('Users').update()
-			// 		} else {
-			// 			console.log('User does exist');
-			// 		}
-			// 	});
-			// });
-	}
-
-	public signUp(email: string, password: string) {
-		this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+	public signUp(username: string, email: string, password: string) {
+		this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+			.then((user) => {
+				console.log(user);
+				this.db.list('Users').update(username, {
+					email: email,
+					photoUrl: '',
+					bio: '',
+					website: '',
+					pathwayTeams: null
+				});
+			});
 	}
 
 	public logout() {

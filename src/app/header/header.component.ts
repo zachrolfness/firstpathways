@@ -11,9 +11,6 @@ import { AuthService } from '../auth-service/auth.service';
 export class HeaderComponent  {
 
   constructor(public auth: AuthService) {
-		setTimeout(() => {
-			console.log(auth.user.name);
-		}, 2000);
 	}
 
   logout() {
