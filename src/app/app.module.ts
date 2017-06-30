@@ -18,7 +18,7 @@ import { LoginComponent } from './login/login.component';
 import {SignUpComponent} from './signup/signup.component'
 
 import { AuthService } from './auth-service/auth.service';
-
+import { DatabaseService } from './database-service/database.service';
 
 @NgModule({
 	imports: [
@@ -41,6 +41,9 @@ import { AuthService } from './auth-service/auth.service';
 		SignUpComponent
 	],
 	bootstrap: [ AppComponent ],
-	providers: [AuthService]
+	providers: [
+		AuthService,
+		DatabaseService
+	]
 })
 export class AppModule {}

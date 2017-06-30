@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthService } from '../auth-service/auth.service';
+import { FirebaseObjectObservable } from 'angularfire2/database';
 
-import { Team } from '../auth-service/auth.service';
+import { AuthService } from '../auth-service/auth.service';
+import { DatabaseService } from '../database-service/database.service';
+
+import { AngularFireDatabase } from 'angularfire2/database';
+
+import { Team } from '../data-models/user';
 
 @Component({
 	selector: 'app-profile',
@@ -21,10 +26,10 @@ export class ProfileComponent {
 		school: ''
 	};
 
-	constructor(public auth: AuthService) {
-		setTimeout(() => {
-			console.log(auth.user.name);
-		}, 2000);
+	User: FirebaseObjectObservable<any>;
+
+	constructor(public auth: AuthService, private db: DatabaseService, private afDb: AngularFireDatabase) {
+		this.User = afDb.object('/Users/' + auth.uid);
 	}
 
 	setActive(isActive: boolean) {
@@ -36,10 +41,15 @@ export class ProfileComponent {
 	}
 
 	addTeam() {
-		if(!this.auth.user.pathwayTeams) {
-			this.auth.user.pathwayTeams = [];
-		}
-		this.auth.user.pathwayTeams.push(this.team);
+
+		this.User.update({
+			PathwayTeams: [{
+				Name: this.team.name,
+				Branch: this.team.branch,
+				School: this.team.school
+			}]
+		});
+
 		this.team = {
 			name: '',
 			branch: '',

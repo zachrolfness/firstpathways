@@ -5,67 +5,46 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 
-export interface User {
-	name: string;
-	email: string;
-	photoUrl?: string;
-	bio?: string;
-	website?: string;
-	pathwayTeams?: Team[]
-}
-
-export interface Team {
-	name: string;
-	branch: string;
-	school: string;
-}
+import { User } from '../data-models/user';
 
 @Injectable()
 export class AuthService {
 
 	public user: User;
 
+	public uid: string;
+
 	public isLoggedIn: boolean;
 
-
 	constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase) {
-
 		this.afAuth.authState.subscribe((auth) => {
 			if(auth) {
 				this.isLoggedIn = true;
-
-				this.user = {
-					name: auth.displayName,
-					email: auth.email,
-					photoUrl: auth.photoURL
-				};
+				this.uid = auth.uid;
 			} else {
 				this.isLoggedIn = false;
-				this.user = null;
+				this.uid = null;
 			}
-			// console.log(this.isLoggedIn);
-			// console.log(this.user);
+			console.log(this.isLoggedIn);
 		});
 	}
 
 	public login(email: string, password: string) {
-		this.afAuth.auth.signInWithEmailAndPassword(email, password)
-			.then((user) => {
-				// console.log('Logged in as ' + user.email);
-			});
+		this.afAuth.auth.signInWithEmailAndPassword(email, password);
 	}
 
 	public signUp(username: string, email: string, password: string) {
 		this.afAuth.auth.createUserWithEmailAndPassword(email, password)
 			.then((user) => {
-				console.log(user);
-				console.log(user.uid);
+				// console.log(user);
+				// console.log(user.uid);
 				this.db.list('Users').update(user.uid + '', {
-					email: email,
-					photoUrl: '',
-					bio: '',
-					website: '',
-					pathwayTeams: null
+					Name: username,
+					Email: email,
+					PhotoURL: '',
+					Bio: '',
+					Website: '',
+					PathwayTeams: null
 				});
 			});
 	}
