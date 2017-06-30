@@ -27,10 +27,13 @@ export class AuthService {
 
 	public isLoggedIn: boolean;
 
+
 	constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase) {
+
 		this.afAuth.authState.subscribe((auth) => {
 			if(auth) {
 				this.isLoggedIn = true;
+
 				this.user = {
 					name: auth.displayName,
 					email: auth.email,
@@ -56,7 +59,8 @@ export class AuthService {
 		this.afAuth.auth.createUserWithEmailAndPassword(email, password)
 			.then((user) => {
 				console.log(user);
-				this.db.list('Users').update(username, {
+				console.log(user.uid);
+				this.db.list('Users').update(user.uid + '', {
 					email: email,
 					photoUrl: '',
 					bio: '',

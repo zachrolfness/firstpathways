@@ -26,16 +26,10 @@ export class SignUpComponent implements OnInit {
 
 	signUp(username: string, email: string, password: string, role: string) {
 		this.auth.signUp(username, email, password);
-		// this.auth.login(email, password);
-
-		// console.log(role);
-
-		//implement code to add both the username and role to the user data
 
 		email = '';
 		password = '';
 
-		// this.router.navigate(['./profile']);
 	}
 
 	ngOnInit() {
