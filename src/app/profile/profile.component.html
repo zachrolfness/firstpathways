@@ -36,8 +36,14 @@
 			<img [src]="(User | async)?.PhotoURL" alt="Display Photo" class="img-thumbnail rounded">
 		</div>
 		<div *ngIf="edit">
-			<label for="photoURL">Photo URL</label>
+
+			<label for="photoURL">Add from URL</label>
 			<input #photo id="photoURL" type="text" class="form-control" [ngModel]="(User | async)?.PhotoURL" (onblur)="saveUserPhoto(photoUrl.value)">
+
+
+			<label for="photoURL">Upload from Computer</label>
+			<input type="file" class="form-control-file" (change)="uploadImage($event.target.files[0])">
+
 		</div>
 	</div>
 
@@ -111,7 +117,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let Team of (User | async)?.PathwayTeams">
+						<tr *ngFor="let Team of PathwayTeams | async">
 							<th>{{Team.Name}}</th>
 							<th>{{Team.Number}}</th>
 							<th>{{Team.Branch}}</th>
@@ -146,12 +152,14 @@
 								<input #school type="text" class="form-control" [ngModel]="Team.School">
 							</th>
 							<th>
+								<div class="btn-group-vertical">
 								<button type="button" class="btn btn-outline-primary" (click)="saveTeam(Team.$key, name.value, number.value, branch.value, school.value)">
 									Save
 								</button>
 								<button type="button" class="btn btn-outline-primary" (click)="removeTeam(Team.$key)">
 									Remove
 								</button>
+								</div>
 							</th>
 						</tr>
 						<tr>

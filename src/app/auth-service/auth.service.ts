@@ -36,8 +36,6 @@ export class AuthService {
 	public signUp(username: string, email: string, password: string) {
 		this.afAuth.auth.createUserWithEmailAndPassword(email, password)
 			.then((user) => {
-				// console.log(user);
-				// console.log(user.uid);
 				this.db.list('Users').update(user.uid + '', {
 					Name: username,
 					Email: email,

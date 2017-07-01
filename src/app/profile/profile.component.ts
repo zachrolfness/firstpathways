@@ -1,6 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
+// import { Http, Response, RequestOptions } from '@angular/http';
+
 import { FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
+
+import { environment } from '../../environments/environment';
+
+// import { Observable } from 'rxjs/Observable';
+
+// import { FileUploader } from 'ng2-file-upload';
+
+// import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 
 import { AuthService } from '../auth-service/auth.service';
 import { DatabaseService } from '../database-service/database.service';
@@ -29,11 +39,7 @@ export class ProfileComponent {
 
 	PathwayTeams: FirebaseListObservable<any[]>;
 
-	user: {
-		photoURL: string;
-		bio: string;
-		website: string;
-	};
+	file: File;
 
 	constructor(public auth: AuthService, private db: DatabaseService) {
 		this.User = db.getUser(auth.uid);
@@ -48,8 +54,25 @@ export class ProfileComponent {
 		this.edit = !this.edit;
 	}
 
-	addTeam() {
+	uploadImage(file: File) {
+		this.User.subscribe(User => {
+			this.db.uploadImage(this.auth.uid, file, User.Name);
+		});
+	}
 
+	saveUserWebsite(website: string) {
+		this.User.update({
+			Website: website
+		});
+	}
+
+	saveUserBio(bio: string) {
+		this.User.update({
+			Bio: bio
+		});
+	}
+
+	addTeam() {
 		this.PathwayTeams.push({
 			Name: this.team.name,
 			Number: this.team.number,
@@ -65,17 +88,6 @@ export class ProfileComponent {
 		};
 	}
 
-	saveUserBio(bio: string) {
-		this.User.update({
-			Bio: bio
-		});
-	}
-
-	saveUserWebsite(website: string) {
-		this.User.update({
-			Website: website
-		});
-	}
 	saveTeam(key: string, name: string, number: number, branch: string, school: string) {
 		this.PathwayTeams.update(key, {
 			Name: name,
