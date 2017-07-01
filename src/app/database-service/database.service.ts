@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
 
 import { Team } from '../data-models/user';
 
@@ -11,6 +11,10 @@ export class DatabaseService {
 
 	public getUser(uid: string): FirebaseObjectObservable<any> {
 		return this.db.object('/Users/' + uid);
+	}
+
+	public getPathwayTeams(uid: string): FirebaseListObservable<any> {
+		return this.db.list('/Users/' + uid + '/PathwayTeams');
 	}
 
 }
