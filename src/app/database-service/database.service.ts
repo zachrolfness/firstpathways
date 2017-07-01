@@ -14,7 +14,7 @@ export class DatabaseService {
 		return this.db.object('/Users/' + uid);
 	}
 
-	public getPathwayTeams(uid: string): FirebaseListObservable<any> {
+	public getPathwayTeams(uid: string): FirebaseListObservable<any[]> {
 		return this.db.list('/Users/' + uid + '/PathwayTeams');
 	}
 

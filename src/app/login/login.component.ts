@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 	}
 
 	goToProfile() {
-		this.router.navigate(['./profile']);
+		this.router.navigate(['./my-profile']);
 	}
 
 	ngOnInit() {

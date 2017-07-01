@@ -10,7 +10,10 @@ import { LoginComponent } from './login/login.component';
 
 import { ProfileComponent } from './profile/profile.component';
 
-import {SignUpComponent} from './signup/signup.component'
+import { SignUpComponent } from './signup/signup.component'
+
+import { TeamsComponent } from './teams/teams.component';
+import { ResourcesComponent } from './resources/resources.component';
 
 const routes = [{
 	path: 'home',
@@ -28,11 +31,17 @@ const routes = [{
 	path: 'login',
 	component: LoginComponent
 }, {
-	path: 'profile',
-	component: ProfileComponent
-}, {
 	path: 'signup',
 	component: SignUpComponent
+}, {
+	path: 'my-profile',
+	component: ProfileComponent
+}, {
+	path: 'my-teams',
+	component: TeamsComponent
+}, {
+	path: 'my-resources',
+	component: ResourcesComponent
 }, {
 	path: '',
 	redirectTo: '/home',

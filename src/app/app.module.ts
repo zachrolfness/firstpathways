@@ -23,6 +23,8 @@ import { AuthService } from './auth-service/auth.service';
 import { DatabaseService } from './database-service/database.service';
 
 import * as firebase from 'firebase';
+import { TeamsComponent } from './teams/teams.component';
+import { ResourcesComponent } from './resources/resources.component';
 
 
 firebase.initializeApp(environment.firebase);
@@ -46,7 +48,9 @@ firebase.initializeApp(environment.firebase);
 		HeaderComponent,
 		ProfileComponent,
 		LoginComponent,
-		SignUpComponent
+		SignUpComponent,
+		TeamsComponent,
+		ResourcesComponent
 	],
 	bootstrap: [ AppComponent ],
 	providers: [
