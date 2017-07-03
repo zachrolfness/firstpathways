@@ -23,7 +23,9 @@ export class TeamsComponent implements OnInit {
 
 	PathwayTeams: FirebaseListObservable<any[]>;
 
+	view: boolean = true;
 	edit: boolean = false;
+	add: boolean = false;
 
 	constructor(public auth: AuthService, private db: DatabaseService) {
 	}
@@ -34,8 +36,26 @@ export class TeamsComponent implements OnInit {
 		}, 1000);
 	}
 
-	toggleEdit() {
-		this.edit = !this.edit;
+	showView() {
+		this.view = true;
+		this.edit = false;
+		this.add = false;
+	}
+
+	showEdit() {
+		this.view = false;
+		this.edit = true;
+		this.add = false;
+	}
+
+	showAdd() {
+		this.view = false;
+		this.edit = false;
+		this.add = true;
+	}
+
+	selectBranch(branch: string) {
+		this.team.branch = branch;
 	}
 
 	addTeam() {
@@ -54,14 +74,14 @@ export class TeamsComponent implements OnInit {
 		};
 	}
 
-		saveTeam(key: string, name: string, number: number, branch: string, school: string) {
-			this.PathwayTeams.update(key, {
-				Name: name,
-				Number: number,
-				Branch: branch,
-				School: school
-			});
-		}
+	saveTeam(key: string, name: string, number: number, branch: string, school: string) {
+		this.PathwayTeams.update(key, {
+			Name: name,
+			Number: number,
+			Branch: branch,
+			School: school
+		});
+	}
 
 	removeTeam(key: string) {
 		if(key) {
