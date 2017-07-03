@@ -30,6 +30,11 @@ export class SignUpComponent implements OnInit {
 		email = '';
 		password = '';
 
+		this.goToProfile();
+	}
+
+	goToProfile() {
+		this.router.navigate(['./profile']);
 	}
 
 	ngOnInit() {

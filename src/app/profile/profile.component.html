@@ -1,135 +1,96 @@
-
-<div *ngIf="auth.user">
+<!-- <div *ngIf="auth.isLoggedIn">
 
 <div class="container-fluid">
-<hr/>
+<div class="row">
+
+<nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+<ul class="nav nav-pills flex-column nav-stacked" style="background-color:#003974; padding: 4px">
+	<li class="nav-item" style="width:100%">
+		<a class="nav-link buttontab" href="my-profile">Profile</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link buttontab" href="my-teams">Teams</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link buttontab" href="my-resources">Resources</a>
+	</li>
+	<li class="nav-item buttontab">
+		<a class="nav-link buttontab" href="social">Social</a>
+	</li>
+	<li class="nav-item buttontab">
+		<a class="nav-link buttontab" href="settings">Settings</a>
+	</li>
+</ul>
+</nav>
+
+<div class="col-sm-9 col-md-10 pt-3" style="width:80%"> -->
 
 	<div class="row">
-        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
-          <ul class="nav nav-pills flex-column nav-stacked" style="background-color:#003974; padding: 4px">
-            <li class="nav-item" style="width:100%">
-              <a class="nav-link buttontab" href="profile">Profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link buttontab" href="myteams">My Teams</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link buttontab" href="myresources">My Resources</a>
-            </li>
-            <li class="nav-item buttontab">
-              <a class="nav-link buttontab" href="social">Social</a>
-            </li>
-						<li class="nav-item buttontab">
-              <a class="nav-link buttontab" href="settings">Settings</a>
-            </li>
-          </ul>
-
-        </nav>
-
-  <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3" style="width:80%">
-  	<h1>User Dashboard</h1>
-			<div class="row">
-
-			<div class="col-5">
-				<img [src]="auth?.user.photoUrl" alt="Display Photo" class="img-thumbnail rounded">
-			</div>
-			<div class="col-7">
-				<div class="row">
-					<div class="col-10">
-						<h1>{{auth?.user.name}}</h1>
-					</div>
-					<div class="col-2">
-						<div *ngIf="edit">
-							<button (click)="toggleEdit()" class="btn btn-outline-primary">
-								View
-							</button>
-						</div>
-						<div *ngIf="!edit">
-							<button (click)="toggleEdit()" class="btn btn-outline-primary">
-								Edit
-							</button>
-						</div>
-					</div>
-				</div>
-
-				<br />
-					Bio:
-				<br/>
-
-				<div *ngIf="!edit">
-					<p>{{auth?.user.bio}}</p>
-				</div>
+		<div class="col-10">
+			<h1 class="display-4">{{(User | async)?.Name}}</h1>
+		</div>
+		<div class="col-2">
+			<button (click)="toggleEdit()" class="btn btn-outline-primary">
 				<div *ngIf="edit">
-					<textarea cols="30" rows="10" class="form-control" [(ngModel)]="auth?.user.bio" (onblur)="saveUser()">
-					</textarea>
+					View
 				</div>
-
-				Website:
-
 				<div *ngIf="!edit">
-					<a [href]="auth?.user.website" target="_blank">
-						{{auth?.user.website}}
-					</a>
+					Edit
 				</div>
-				<div *ngIf="edit">
-					<input type="text" class="form-control" [(ngModel)]="auth?.user.website" (onblur)="saveUser()">
-				</div>
-			</div>
+			</button>
+		</div>
+	</div>
+
+	<br />
+
+	<div class="row">
+
+	<div class="col-5">
+		<div *ngIf="!edit">
+			<img [src]="(User | async)?.PhotoURL" alt="Display Photo" class="img-thumbnail rounded">
+		</div>
+		<div *ngIf="edit">
+
+			<label for="photoURL"><h5>Add from URL</h5></label>
+			<input #photo id="photoURL" type="text" class="form-control" [ngModel]="(User | async)?.PhotoURL" (onblur)="saveUserPhoto(photoUrl.value)">
+
+			<br />
+
+			<label for="uploadImage"><h5>Upload from Computer</h5></label>
+			<input type="file" id="uploadImage" class="form-control-file" (change)="uploadImage($event.target.files[0])">
+
+		</div>
+	</div>
+
+	<div class="col-7">
+
+		<h4>Bio</h4>
+
+		<div *ngIf="!edit">
+			<p>{{(User | async)?.Bio}}</p>
+		</div>
+		<div *ngIf="edit">
+			<textarea #bio id="bio" cols="30" rows="10" class="form-control" [ngModel]="(User | async)?.Bio" (blur)="saveUserBio(bio.value)">
+			</textarea>
 		</div>
 
-		<br />
+		<h4>Website</h4>
 
-		<ul class="nav nav-pills nav-justified">
-			<li class="nav-item">
-				<a class="nav-link" [class.active]="isActive" (click)="setActive(true)">Pathway Teams</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" [class.active]="!isActive" (click)="setActive(false)">Created Resources</a>
-			</li>
-		</ul>
-
-		<br />
-
-		<div class="tab-content">
-			<div class="tab-pane" id="teams" role="tabpanel" [class.active]="isActive">
-				<h3>Pathway Teams</h3>
-				<table class="table">
-				<thead>
-					<tr>
-						<th>Team Name</th>
-						<th>FIRST Branch</th>
-						<th>School</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr *ngFor="let team of auth.user.pathwayTeams">
-						<th>{{team.name}}</th>
-						<th>{{team.branch}}</th>
-						<th>{{team.school}}</th>
-					</tr>
-					<tr>
-						<th>
-							<input type="text" class="form-control" [(ngModel)]="team.name" (keyup.enter)="addTeam()">
-						</th>
-						<th>
-							<input type="text" class="form-control" [(ngModel)]="team.branch" (keyup.enter)="addTeam()">
-						</th>
-						<th>
-							<input type="text" class="form-control" [(ngModel)]="team.school" (keyup.enter)="addTeam()">
-						</th>
-					</tr>
-				</tbody>
-			</table>
-			<div *ngIf="edit">
-
-			</div>
+		<div *ngIf="!edit">
+			<a [href]="(User | async)?.Website" target="_blank">
+				{{(User | async)?.Website}}
+			</a>
 		</div>
-		<div class="tab-pane" id="resources" role="tabpanel" [class.active]="!isActive">
-			<h3>Created Resources</h3>
+		<div *ngIf="edit">
+			<input #website type="text" id="website" class="form-control" [ngModel]="(User | async)?.Website" (blur)="saveUserWebsite(website.value)">
 		</div>
-		</div>
-  </main>
 
 	</div>
+
+	</div>
+
+<!-- </div>
+
 </div>
 </div>
+</div> -->

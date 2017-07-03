@@ -1,0 +1,171 @@
+<div *ngIf="view">
+
+	<div class="row">
+		<div class="col-10">
+			<h1 class="display-4">Pathway Teams</h1>
+		</div>
+		<div class="col-2">
+			<div class="btn-group">
+				<button (click)="showEdit()" class="btn btn-outline-primary">
+					Edit
+				</button>
+				<button (click)="showAdd()" class="btn btn-outline-primary">
+					Add
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<br />
+
+	<table class="table">
+		<thead class="thead-default">
+			<tr>
+				<th>Team Name</th>
+				<th>Team Number</th>
+				<th>FIRST Branch</th>
+				<th>School</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let Team of PathwayTeams | async">
+				<td>{{Team.Name}}</td>
+				<td>{{Team.Number}}</td>
+				<td>{{Team.Branch}}</td>
+				<td>{{Team.School}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div *ngIf="edit">
+	<div class="row">
+		<div class="col-10">
+			<h1 class="display-4">Edit your Pathway Teams</h1>
+		</div>
+		<div class="col-2">
+			<div class="btn-group">
+				<button (click)="showView()" class="btn btn-outline-primary">
+					View
+				</button>
+				<button (click)="showAdd()" class="btn btn-outline-primary">
+					Add
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<br />
+
+	<table class="table">
+		<thead class="thead-default">
+			<tr>
+				<th>Team Name</th>
+				<th>Team Number</th>
+				<th>FIRST Branch</th>
+				<th>School</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let Team of PathwayTeams | async">
+				<th>
+					<input #name type="text" class="form-control" [ngModel]="Team.Name">
+				</th>
+				<th>
+					<input #number type="text" class="form-control" [ngModel]="Team.Number">
+				</th>
+				<th>
+					<input #branch type="text" class="form-control" [ngModel]="Team.Branch">
+				</th>
+				<th>
+					<input #school type="text" class="form-control" [ngModel]="Team.School">
+				</th>
+				<th>
+					<div class="btn-group-vertical">
+					<button type="button" class="btn btn-outline-primary" (click)="saveTeam(Team.$key, name.value, number.value, branch.value, school.value)">
+						Save
+					</button>
+					<button type="button" class="btn btn-outline-primary" (click)="removeTeam(Team.$key)">
+						Remove
+					</button>
+					</div>
+				</th>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div *ngIf="add">
+
+	<div class="row">
+		<div class="col-10">
+			<h1 class="display-4">Add a Pathway Team</h1>
+		</div>
+		<div class="col-2">
+			<div class="btn-group">
+				<button (click)="showView()" class="btn btn-outline-primary">
+					View
+				</button>
+				<button (click)="showEdit()" class="btn btn-outline-primary">
+					Edit
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<br />
+
+	<div class="row">
+		<div class="col-8">
+
+			<div class="form-group row">
+				<label for="name" class="col-3 col-form-label">Team Name</label>
+				<div class="col-9">
+					<input type="text" id="name" class="form-control" [(ngModel)]="team.name">
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="number" class="col-3 col-form-label">Team Number</label>
+				<div class="col-9">
+					<input type="text" id="number" class="form-control" [(ngModel)]="team.number">
+				</div>
+			</div>
+
+			<div class="row">
+				<label class="col-3">Team Branch</label>
+				<div class="col-9">
+					<button type="button" class="btn btn-sm btn-outline-success" (click)="selectBranch('FLL Jr.')">
+						FLL Jr.
+					</button>
+					<button type="button" class="btn btn-sm btn-outline-danger" (click)="selectBranch('FLL')">
+						FLL
+					</button>
+					<button type="button" class="btn btn-sm btn-outline-warning" (click)="selectBranch('FTC')">
+						FTC
+					</button>
+					<button type="button" class="btn btn-sm btn-outline-primary" (click)="selectBranch('FRC')">
+						FRC
+					</button>
+				</div>
+			</div>
+
+			<br />
+
+			<div class="form-group row">
+				<label for="school" class="col-3 col-form-label">Team School</label>
+				<div class="col-9">
+					<input type="text" id="school" class="form-control" [(ngModel)]="team.school">
+				</div>
+			</div>
+
+		</div>
+		<div class="col-4">
+			<button class="btn btn-block btn-success" (click)="addTeam()">
+					Add Team
+			</button>
+		</div>
+	</div>
+
+</div>

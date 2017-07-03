@@ -1,33 +1,35 @@
 <div class="container">
 
-<br /><br /><br /><br />
+	<h1>Login</h1>
 
-<h1>Login</h1>
+	<div *ngIf="!auth.isLoggedIn">
 
-<div class="form-group">
-	<label for="email">Email address</label>
-	<input [(ngModel)]="email" type="email" class="form-control" id="email" placeholder="Enter email">
-</div>
-<div class="form-group">
-	<label for="password">Password</label>
-	<input [(ngModel)]="password" type="password" class="form-control" id="password" placeholder="Password">
-</div>
+		<div class="form-group">
+			<label for="email">Email address</label>
+			<input [(ngModel)]="email" type="email" class="form-control" id="email" placeholder="Enter email">
+		</div>
+		<div class="form-group">
+			<label for="password">Password</label>
+			<input [(ngModel)]="password" type="password" class="form-control" id="password" placeholder="Password">
+		</div>
 
-<div *ngIf="!auth.isLoggedIn">
+		<button (click)="login(email, password)" type="button" class="btn btn-outline-primary">
+			Login
+		</button>
 
-	<button (click)="login(email, password)" type="button" class="btn btn-outline-primary">
-		Login
+	</div>
+
+	<div *ngIf="auth.isLoggedIn">
+		<br />
+		<button (click)="logout()" type="button" class="btn btn-outline-primary">
+			Logout
+		</button>
+	</div>
+
+	<br />
+
+	<button (click)="goToProfile()" type="button" class="btn btn-outline-primary">
+		Go to Profile
 	</button>
 
-	<button (click)="signUp(email, password)" type="button" class="btn btn-outline-primary">
-		Sign Up
-	</button>
-
-</div>
-
-<div *ngIf="auth.isLoggedIn">
-	<button (click)="logout()" type="button" class="btn btn-outline-primary">
-		Logout
-	</button>
-</div>
 </div>

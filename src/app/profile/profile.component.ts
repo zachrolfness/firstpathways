@@ -1,54 +1,52 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthService } from '../auth-service/auth.service';
+import { FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
 
-import { Team } from '../auth-service/auth.service';
+import { AuthService } from '../auth-service/auth.service';
+import { DatabaseService } from '../database-service/database.service';
+
+import { Team } from '../data-models/user';
 
 @Component({
 	selector: 'app-profile',
 	templateUrl: './profile.component.html',
 	styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
-
-	isActive: boolean = true;
+export class ProfileComponent implements OnInit {
 
 	edit: boolean = false;
 
-	team: Team = {
-		name: '',
-		branch: '',
-		school: ''
-	};
+	User: FirebaseObjectObservable<any>;
 
-	constructor(public auth: AuthService) {
-		setTimeout(() => {
-			console.log(auth.user.name);
-		}, 2000);
+	constructor(public auth: AuthService, private db: DatabaseService) {
 	}
 
-	setActive(isActive: boolean) {
-		this.isActive = isActive;
+	ngOnInit() {
+		setTimeout(() => {
+			this.User = this.db.getUser(this.auth.uid);
+		}, 1000);
 	}
 
 	toggleEdit() {
 		this.edit = !this.edit;
 	}
 
-	addTeam() {
-		if(!this.auth.user.pathwayTeams) {
-			this.auth.user.pathwayTeams = [];
-		}
-		this.auth.user.pathwayTeams.push(this.team);
-		this.team = {
-			name: '',
-			branch: '',
-			school: ''
-		};
+	uploadImage(file: File) {
+		this.User.subscribe(User => {
+			this.db.uploadImage(this.auth.uid, file, User.Name);
+		});
 	}
 
-	saveUser() {
-		//
+	saveUserWebsite(website: string) {
+		this.User.update({
+			Website: website
+		});
+	}
+
+	saveUserBio(bio: string) {
+		this.User.update({
+			Bio: bio
+		});
 	}
 
 }

@@ -14,15 +14,16 @@ export class LoginComponent implements OnInit {
 
 	login(email: string, password: string) {
 		this.auth.login(email, password);
+
 		email = '';
 		password = '';
-    this.router.navigate(['./profile'])
+
+		this.goToProfile();
 	}
 
-  signUp(){
-    this.router.navigate(['./signup'])
-  }
-
+	goToProfile() {
+		this.router.navigate(['./my-profile']);
+	}
 
 	ngOnInit() {
 	}
