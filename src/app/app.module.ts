@@ -21,6 +21,7 @@ import { SignUpComponent } from './signup/signup.component'
 
 import { AuthService } from './auth-service/auth.service';
 import { DatabaseService } from './database-service/database.service';
+import { StorageService } from './storage-service/storage.service';
 
 import * as firebase from 'firebase';
 import { TeamsComponent } from './teams/teams.component';
@@ -55,7 +56,8 @@ firebase.initializeApp(environment.firebase);
 	bootstrap: [ AppComponent ],
 	providers: [
 		AuthService,
-		DatabaseService
+		DatabaseService,
+		StorageService
 	]
 })
 export class AppModule {}

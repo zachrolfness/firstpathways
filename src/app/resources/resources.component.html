@@ -1,3 +1,193 @@
-<p>
-  resources works!
-</p>
+<div *ngIf="view">
+
+	<div class="row">
+		<div class="col-10">
+			<h1 class="display-4">Resources</h1>
+		</div>
+		<div class="col-2">
+			<div class="btn-group">
+				<button (click)="showEdit()" class="btn btn-outline-primary">
+					Edit
+				</button>
+				<button (click)="showAdd()" class="btn btn-outline-primary">
+					Add
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<br />
+
+	<table class="table">
+		<thead class="thead-default">
+			<tr>
+				<th>Resource Name</th>
+				<!-- <th>FIRST Branch</th> -->
+				<th>Description</th>
+				<th>Tags</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let Resource of Resources | async">
+				<td>
+					<span class="badge" [ngClass]="getBadgeColor(Resource.Branch)">
+						{{Resource.Branch}}
+					</span>
+
+					<a [href]="Resource.URL" target="_blank">
+						{{Resource.Name}}
+					</a>
+				</td>
+				<td>{{Resource.Description}}</td>
+				<!-- <td>
+					<div *ngFor="let Tag of Resource.Tags | tags">
+						<span class="badge">{{Tag}}</span>
+					</div>
+				</td> -->
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div *ngIf="edit">
+	<div class="row">
+		<div class="col-10">
+			<h1 class="display-4">Edit your Resources</h1>
+		</div>
+		<div class="col-2">
+			<div class="btn-group">
+				<button (click)="showView()" class="btn btn-outline-primary">
+					View
+				</button>
+				<button (click)="showAdd()" class="btn btn-outline-primary">
+					Add
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<br />
+
+	<table class="table">
+		<thead class="thead-default">
+			<tr>
+				<th>Resource Name</th>
+				<th>FIRST Branch</th>
+				<th>Description</th>
+				<!-- <th>Tags</th> -->
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let Resource of Resources | async">
+				<th>
+					<input #name type="text" class="form-control" [ngModel]="Resource.Name">
+				</th>
+				<th>
+					<input #branch type="text" class="form-control" [ngModel]="Resource.Branch">
+				</th>
+				<th>
+					<input #description type="text" class="form-control" [ngModel]="Resource.Description">
+				</th>
+				<!-- <th>
+					<div *ngFor="let Tag of "
+					<input #tags type="text" class="form-control" [ngModel]="Resource.School">
+				</th> -->
+				<th>
+					<div class="btn-group-vertical">
+					<button type="button" class="btn btn-outline-primary" (click)="saveResource(Resource.$key, name.value, branch.value, description.value)">
+						Save
+					</button>
+					<button type="button" class="btn btn-outline-primary" (click)="removeResource(Resource.$key)">
+						Remove
+					</button>
+					</div>
+				</th>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div *ngIf="add">
+
+	<div class="row">
+		<div class="col-10">
+			<h1 class="display-4">Add a Resource</h1>
+		</div>
+		<div class="col-2">
+			<div class="btn-group">
+				<button (click)="showView()" class="btn btn-outline-primary">
+					View
+				</button>
+				<button (click)="showEdit()" class="btn btn-outline-primary">
+					Edit
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<br />
+
+	<div class="row">
+		<div class="col-8">
+
+			<div class="form-group row">
+				<label for="name" class="col-3 col-form-label">Resource Name</label>
+				<div class="col-9">
+					<input type="text" id="name" class="form-control" [(ngModel)]="resource.name">
+				</div>
+			</div>
+
+
+			<div class="row">
+				<label class="col-3">Resource Branch</label>
+				<div class="col-9">
+					<button type="button" class="btn btn-sm" (click)="selectBranch('FLL Jr')" [ngClass]="{'btn-outline-success': !isBranch('FLL Jr'), 'btn-success': isBranch('FLL Jr')}">
+						FLL Jr.
+					</button>
+					<button type="button" class="btn btn-sm" (click)="selectBranch('FLL')" [ngClass]="{'btn-outline-danger': !isBranch('FLL'), 'btn-danger': isBranch('FLL')}">
+						FLL
+					</button>
+					<button type="button" class="btn btn-sm" (click)="selectBranch('FTC')" [ngClass]="{'btn-outline-warning': !isBranch('FTC'), 'btn-warning': isBranch('FTC')}">
+						FTC
+					</button>
+					<button type="button" class="btn btn-sm" (click)="selectBranch('FRC')" [ngClass]="{'btn-outline-primary': !isBranch('FRC'), 'btn-primary': isBranch('FRC')}">
+						FRC
+					</button>
+				</div>
+			</div>
+
+			<!-- <div class="form-group row">
+				<label for="number" class="col-3 col-form-label">Add Tags</label>
+				<div class="col-9">
+					<input type="text" id="number" class="form-control" [(ngModel)]="resource.tags">
+				</div>
+			</div> -->
+
+			<br />
+
+			<div class="form-group row">
+				<label for="description" class="col-3 col-form-label">Resource Description</label>
+				<div class="col-9">
+					<input type="text" id="description" class="form-control" [(ngModel)]="resource.description">
+				</div>
+			</div>
+
+
+			<label for="photoURL">Add Resource from URL</label>
+			<input #photo id="photoURL" type="text" class="form-control" [ngModel]="resource.fileURL">
+
+			<br />
+
+			<label for="uploadImage">Upload Resource from Computer</label>
+			<input type="file" id="uploadImage" class="form-control-file" (change)="uploadFile($event.target.files[0])">
+
+		</div>
+		<div class="col-4">
+			<button class="btn btn-block btn-success" (click)="addResource()">
+				Add Resource
+			</button>
+		</div>
+	</div>
+
+</div>

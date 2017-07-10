@@ -4,8 +4,9 @@ import { FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/d
 
 import { AuthService } from '../auth-service/auth.service';
 import { DatabaseService } from '../database-service/database.service';
+import { StorageService } from '../storage-service/storage.service';
 
-import { Team } from '../data-models/user';
+import { Team } from '../data-models/team';
 
 @Component({
 	selector: 'app-profile',
@@ -18,23 +19,30 @@ export class ProfileComponent implements OnInit {
 
 	User: FirebaseObjectObservable<any>;
 
-	constructor(public auth: AuthService, private db: DatabaseService) {
-	}
+	constructor(
+		public auth: AuthService,
+		private db: DatabaseService,
+		private storage: StorageService
+	) {}
 
 	ngOnInit() {
-		setTimeout(() => {
-			this.User = this.db.getUser(this.auth.uid);
-		}, 1000);
+		this.auth.getUID().then((uid: string) => {
+			this.User = this.db.getUser(uid);
+		});
 	}
 
 	toggleEdit() {
 		this.edit = !this.edit;
 	}
 
-	uploadImage(file: File) {
-		this.User.subscribe(User => {
-			this.db.uploadImage(this.auth.uid, file, User.Name);
-		});
+	uploadImage(file: File, name: string) {
+		console.log(name);
+		this.storage.uploadImage(this.auth.uid, file, name)
+			.then((url: string) => {
+				this.User.update({
+					PhotoURL: url
+				})
+			});
 	}
 
 	saveUserWebsite(website: string) {

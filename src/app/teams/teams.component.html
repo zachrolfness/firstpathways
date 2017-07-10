@@ -23,15 +23,18 @@
 			<tr>
 				<th>Team Name</th>
 				<th>Team Number</th>
-				<th>FIRST Branch</th>
 				<th>School</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr *ngFor="let Team of PathwayTeams | async">
-				<td>{{Team.Name}}</td>
+				<td>
+					<span class="badge" [ngClass]="getBadgeColor(Team.Branch)">
+						{{Team.Branch}}
+					</span>
+					{{Team.Name}}
+				</td>
 				<td>{{Team.Number}}</td>
-				<td>{{Team.Branch}}</td>
 				<td>{{Team.School}}</td>
 			</tr>
 		</tbody>
@@ -134,18 +137,18 @@
 			</div>
 
 			<div class="row">
-				<label class="col-3">Team Branch</label>
+				<label class="col-3">Resource Branch</label>
 				<div class="col-9">
-					<button type="button" class="btn btn-sm btn-outline-success" (click)="selectBranch('FLL Jr.')">
+					<button type="button" class="btn btn-sm" (click)="selectBranch('FLL Jr')" [ngClass]="{'btn-outline-success': !isBranch('FLL Jr'), 'btn-success': isBranch('FLL Jr')}">
 						FLL Jr.
 					</button>
-					<button type="button" class="btn btn-sm btn-outline-danger" (click)="selectBranch('FLL')">
+					<button type="button" class="btn btn-sm" (click)="selectBranch('FLL')" [ngClass]="{'btn-outline-danger': !isBranch('FLL'), 'btn-danger': isBranch('FLL')}">
 						FLL
 					</button>
-					<button type="button" class="btn btn-sm btn-outline-warning" (click)="selectBranch('FTC')">
+					<button type="button" class="btn btn-sm" (click)="selectBranch('FTC')" [ngClass]="{'btn-outline-warning': !isBranch('FTC'), 'btn-warning': isBranch('FTC')}">
 						FTC
 					</button>
-					<button type="button" class="btn btn-sm btn-outline-primary" (click)="selectBranch('FRC')">
+					<button type="button" class="btn btn-sm" (click)="selectBranch('FRC')" [ngClass]="{'btn-outline-primary': !isBranch('FRC'), 'btn-primary': isBranch('FRC')}">
 						FRC
 					</button>
 				</div>

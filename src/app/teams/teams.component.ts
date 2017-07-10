@@ -5,7 +5,7 @@ import { FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/d
 import { AuthService } from '../auth-service/auth.service';
 import { DatabaseService } from '../database-service/database.service';
 
-import { Team } from '../data-models/user';
+import { Team } from '../data-models/team';
 
 @Component({
   selector: 'app-teams',
@@ -31,9 +31,9 @@ export class TeamsComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		setTimeout(() => {
-			this.PathwayTeams = this.db.getPathwayTeams(this.auth.uid);
-		}, 1000);
+		this.auth.getUID().then((uid: string) => {
+			this.PathwayTeams = this.db.getUserTeams(uid);
+		});
 	}
 
 	showView() {
@@ -58,6 +58,22 @@ export class TeamsComponent implements OnInit {
 		this.team.branch = branch;
 	}
 
+	getBadgeColor(branch: string): string {
+		if(branch == 'FRC') {
+			return 'badge-primary';
+		} else if(branch == 'FTC') {
+			return 'badge-warning';
+		} else if(branch == 'FLL') {
+			return 'badge-danger';
+		} else if(branch == 'FLL Jr') {
+			return 'badge-success';
+		}
+	}
+
+	isBranch(branch: string): boolean {
+		return branch == this.team.branch;
+	}
+
 	addTeam() {
 		this.PathwayTeams.push({
 			Name: this.team.name,
@@ -65,6 +81,12 @@ export class TeamsComponent implements OnInit {
 			Branch: this.team.branch,
 			School: this.team.school
 		});
+
+		this.db.getTeams(this.team.branch)
+			.update('' + this.team.number, {
+				Name: this.team.name,
+				School: this.team.school
+			});
 
 		this.team = {
 			name: '',
