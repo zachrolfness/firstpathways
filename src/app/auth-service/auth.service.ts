@@ -29,6 +29,18 @@ export class AuthService {
 		});
 	}
 
+	public getUID(): Promise<string> {
+		return new Promise((resolve, reject) => {
+			this.afAuth.authState.subscribe((auth) => {
+				if(auth) {
+					resolve(auth.uid);
+				} else {
+					resolve(null);
+				}
+			});
+		});
+	}
+
 	public login(email: string, password: string) {
 		this.afAuth.auth.signInWithEmailAndPassword(email, password);
 	}

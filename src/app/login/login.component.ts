@@ -21,11 +21,15 @@ export class LoginComponent implements OnInit {
 		this.goToProfile();
 	}
 
-	goToProfile() {
-		this.router.navigate(['./my-profile']);
+	ngOnInit() {
 	}
 
-	ngOnInit() {
+	logout() {
+		this.auth.logout();
+	}
+
+	goToProfile() {
+		this.router.navigate(['/my-profile']);
 	}
 
 }
