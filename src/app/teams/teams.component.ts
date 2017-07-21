@@ -60,13 +60,13 @@ export class TeamsComponent implements OnInit {
 
 	getBadgeColor(branch: string): string {
 		if(branch == 'FRC') {
-			return 'badge-primary';
+			return '#009cd7';
 		} else if(branch == 'FTC') {
-			return 'badge-warning';
+			return '#f57e25';
 		} else if(branch == 'FLL') {
-			return 'badge-danger';
+			return '#ed1c24';
 		} else if(branch == 'FLL Jr') {
-			return 'badge-success';
+			return '#00a651';
 		}
 	}
 
@@ -74,7 +74,17 @@ export class TeamsComponent implements OnInit {
 		return branch == this.team.branch;
 	}
 
-	addTeam() {
+  addTeam(){
+    if(this.team.name){
+      this.addTeamDB();
+    }else{
+      console.log("no name")
+    }
+
+  }
+
+
+	addTeamDB() {
 		this.PathwayTeams.push({
 			Name: this.team.name,
 			Number: this.team.number,
@@ -94,6 +104,8 @@ export class TeamsComponent implements OnInit {
 			branch: '',
 			school: ''
 		};
+
+    this.showView();
 	}
 
 	saveTeam(key: string, name: string, number: number, branch: string, school: string) {

@@ -26,6 +26,7 @@ import { StorageService } from './storage-service/storage.service';
 import * as firebase from 'firebase';
 import { TeamsComponent } from './teams/teams.component';
 import { ResourcesComponent } from './resources/resources.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 firebase.initializeApp(environment.firebase);
@@ -51,7 +52,8 @@ firebase.initializeApp(environment.firebase);
 		LoginComponent,
 		SignUpComponent,
 		TeamsComponent,
-		ResourcesComponent
+		ResourcesComponent,
+		SidebarComponent
 	],
 	bootstrap: [ AppComponent ],
 	providers: [
