@@ -1,10 +1,20 @@
+<div class="container-fluid">
+
+<div class="row">
+<div class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+<sidebar></sidebar>
+</div>
+
+<div class = "col-sm-9" >
+
 <div *ngIf="view">
 
 	<div class="row">
-		<div class="col-10">
+		<div class="col-8">
 			<h1 class="display-4">Pathway Teams</h1>
+			<p>On this page, add all of the teams that you mentor in your pathway. This is a spot to showcase the teams you work with, mentor, and coach.</p>
 		</div>
-		<div class="col-2">
+		<div class="col-2" style="float: right">
 			<div class="btn-group">
 				<button (click)="showEdit()" class="btn btn-outline-primary">
 					Edit
@@ -14,9 +24,7 @@
 				</button>
 			</div>
 		</div>
-	</div>
 
-	<br />
 
 	<table class="table">
 		<thead class="thead-default">
@@ -29,7 +37,7 @@
 		<tbody>
 			<tr *ngFor="let Team of PathwayTeams | async">
 				<td>
-					<span class="badge" [ngClass]="getBadgeColor(Team.Branch)">
+					<span class="badge" [style.background-color]="getBadgeColor(Team.Branch)">
 						{{Team.Branch}}
 					</span>
 					{{Team.Name}}
@@ -39,6 +47,7 @@
 			</tr>
 		</tbody>
 	</table>
+	</div>
 </div>
 
 <div *ngIf="edit">
@@ -46,7 +55,7 @@
 		<div class="col-10">
 			<h1 class="display-4">Edit your Pathway Teams</h1>
 		</div>
-		<div class="col-2">
+		<div class="col-2" style="float: right">
 			<div class="btn-group">
 				<button (click)="showView()" class="btn btn-outline-primary">
 					View
@@ -56,7 +65,7 @@
 				</button>
 			</div>
 		</div>
-	</div>
+
 
 	<br />
 
@@ -97,6 +106,7 @@
 			</tr>
 		</tbody>
 	</table>
+	</div>
 </div>
 
 <div *ngIf="add">
@@ -105,7 +115,7 @@
 		<div class="col-10">
 			<h1 class="display-4">Add a Pathway Team</h1>
 		</div>
-		<div class="col-2">
+		<div class="col-2" style="float: right">
 			<div class="btn-group">
 				<button (click)="showView()" class="btn btn-outline-primary">
 					View
@@ -115,48 +125,52 @@
 				</button>
 			</div>
 		</div>
-	</div>
+
 
 	<br />
 
-	<div class="row">
+
 		<div class="col-8">
 
-			<div class="form-group row">
+			<div class="form-group">
 				<label for="name" class="col-3 col-form-label">Team Name</label>
 				<div class="col-9">
 					<input type="text" id="name" class="form-control" [(ngModel)]="team.name">
 				</div>
+				<small class="form-text text-muted">We'll never share your email with anyone else.</small>
 			</div>
 
-			<div class="form-group row">
+			<div class="form-group">
 				<label for="number" class="col-3 col-form-label">Team Number</label>
 				<div class="col-9">
 					<input type="text" id="number" class="form-control" [(ngModel)]="team.number">
 				</div>
+				<small class="form-text text-muted">We'll never share your email with anyone else.</small>
 			</div>
 
-			<div class="row">
+
 				<label class="col-3">Resource Branch</label>
 				<div class="col-9">
-					<button type="button" class="btn btn-sm" (click)="selectBranch('FLL Jr')" [ngClass]="{'btn-outline-success': !isBranch('FLL Jr'), 'btn-success': isBranch('FLL Jr')}">
+					<button type="button" class="btn btn-sm" (click)="selectBranch('FLL Jr')" [ngClass]="{'flljrbtn': isBranch('FLL Jr'), 'btn-success': isBranch('FLL Jr')}">
 						FLL Jr.
 					</button>
-					<button type="button" class="btn btn-sm" (click)="selectBranch('FLL')" [ngClass]="{'btn-outline-danger': !isBranch('FLL'), 'btn-danger': isBranch('FLL')}">
+					<button type="button" class="btn btn-sm" (click)="selectBranch('FLL')" [ngClass]="{'fllbtn': isBranch('FLL'), 'btn-danger': isBranch('FLL')}">
 						FLL
 					</button>
-					<button type="button" class="btn btn-sm" (click)="selectBranch('FTC')" [ngClass]="{'btn-outline-warning': !isBranch('FTC'), 'btn-warning': isBranch('FTC')}">
+					<button type="button" class="btn btn-sm" (click)="selectBranch('FTC')" [ngClass]="{'ftcbtn': isBranch('FTC'), 'btn-warning': isBranch('FTC')}">
 						FTC
 					</button>
-					<button type="button" class="btn btn-sm" (click)="selectBranch('FRC')" [ngClass]="{'btn-outline-primary': !isBranch('FRC'), 'btn-primary': isBranch('FRC')}">
+					<button type="button" class="btn btn-sm" (click)="selectBranch('FRC')" [ngClass]="{'frcbtn': isBranch('FRC'), 'btn-primary': isBranch('FRC')}">
 						FRC
 					</button>
+					<br/>
+					<small id="branchHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 				</div>
-			</div>
+
 
 			<br />
 
-			<div class="form-group row">
+			<div class="form-group">
 				<label for="school" class="col-3 col-form-label">Team School</label>
 				<div class="col-9">
 					<input type="text" id="school" class="form-control" [(ngModel)]="team.school">
@@ -170,5 +184,8 @@
 			</button>
 		</div>
 	</div>
+
+</div>
+</div>
 
 </div>

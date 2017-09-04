@@ -1,3 +1,13 @@
+<div class="container-fluid">
+
+<div class="row">
+<div class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+	<sidebar></sidebar>
+</div>
+
+
+<div class = "col-sm-9" >
+
 <div *ngIf="view">
 
 	<div class="row">
@@ -131,7 +141,7 @@
 	<div class="row">
 		<div class="col-8">
 
-			<div class="form-group row">
+			<div class="form-group">
 				<label for="name" class="col-3 col-form-label">Resource Name</label>
 				<div class="col-9">
 					<input type="text" id="name" class="form-control" [(ngModel)]="resource.name">
@@ -139,7 +149,7 @@
 			</div>
 
 
-			<div class="row">
+
 				<label class="col-3">Resource Branch</label>
 				<div class="col-9">
 					<button type="button" class="btn btn-sm" (click)="selectBranch('FLL Jr')" [ngClass]="{'btn-outline-success': !isBranch('FLL Jr'), 'btn-success': isBranch('FLL Jr')}">
@@ -155,9 +165,8 @@
 						FRC
 					</button>
 				</div>
-			</div>
 
-			<!-- <div class="form-group row">
+			<!-- <div class="form-group">
 				<label for="number" class="col-3 col-form-label">Add Tags</label>
 				<div class="col-9">
 					<input type="text" id="number" class="form-control" [(ngModel)]="resource.tags">
@@ -166,7 +175,7 @@
 
 			<br />
 
-			<div class="form-group row">
+			<div class="form-group">
 				<label for="description" class="col-3 col-form-label">Resource Description</label>
 				<div class="col-9">
 					<input type="text" id="description" class="form-control" [(ngModel)]="resource.description">
@@ -183,6 +192,8 @@
 			<input type="file" id="uploadImage" class="form-control-file" (change)="uploadFile($event.target.files[0])">
 
 		</div>
+		<hr/>
+
 		<div class="col-4">
 			<button class="btn btn-block btn-success" (click)="addResource()">
 				Add Resource
@@ -190,4 +201,7 @@
 		</div>
 	</div>
 
+</div>
+</div>
+</div>
 </div>

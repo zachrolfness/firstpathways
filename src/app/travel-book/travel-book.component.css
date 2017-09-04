@@ -1,0 +1,48 @@
+.searchcontainer{
+  width: 100%;
+  margin: 5px;
+}
+.txtsearch{
+  width: 60%;
+  float:left;
+  padding-top: 7px;
+  padding-right: 16px;
+}
+.tagsearch{
+  width: 40%;
+  float:left;
+}
+.inptsearch{
+  display: inline;
+  vertical-align: middle;
+  border: none;
+  padding: 0 0.5rem;
+  height: 38px;
+  font-size: 1em;
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
+  display: block;
+  flex-direction: row;
+  flex-wrap: wrap;
+  position: relative;
+  transition: all 0.25s;
+  padding: 0.25rem 0;
+  min-height: 32px;
+  cursor: text;
+  border-bottom: 2px solid #efefef;
+  width: 85%;
+  margin-right:15px;
+  float:left;
+}
+.inptsearch:focus{
+  border-bottom: 2px solid #2196F3;
+  outline: none;
+}
+.right{
+  float:right;
+  display: inline;
+}
+.tagholder{
+  width: 70%;
+  float: left;
+  position: relative;
+}

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:#003974; min-height:25px" >
 	<div class="container">
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<div *ngIf="!auth.user">
+			<div *ngIf="!auth.isLoggedIn">
 			<ul class="nav navbar-nav navbar-right">
 				<li>
 					<a href="login" style="padding: 5px">Login</a>
@@ -15,7 +15,7 @@
 			<div *ngIf="auth.isLoggedIn">
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<a href="profile" style="padding: 5px">My Profile</a>
+						<a href="my-profile" style="padding: 5px">My Profile</a>
 					</li>
 					<li>
 						<a (click)="logout()" href="home" style="padding: 5px">Log Out</a>
@@ -43,10 +43,10 @@
 		</div>
 		<div class="rightbtns" style="color: red; font-size: 64px; padding-top: 5%">&bull;</div>
 		<div class="rightbtns">
-			<div *ngIf="auth.user">
-				<a routerLink="/profile">My Account</a>
+			<div *ngIf="auth.isLoggedIn">
+				<a routerLink="/my-profile">My Account</a>
 			</div>
-			<div *ngIf="!auth.user">
+			<div *ngIf="!auth.isLoggedIn">
 				<a routerLink="/login">My Account</a>
 			</div>
 

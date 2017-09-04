@@ -1,40 +1,7 @@
 <app-header></app-header>
 
 <br />
-<hr />
 
-<div *ngIf="auth.isLoggedIn">
-
-<div class="container-fluid">
-<div class="row">
-	<nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
-	<ul class="nav nav-pills flex-column nav-stacked" style="background-color:#003974; padding: 4px">
-		<li class="nav-item" style="width:100%">
-			<a class="nav-link buttontab" href="my-profile">Profile</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link buttontab" href="my-teams">Teams</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link buttontab" href="my-resources">Resources</a>
-		</li>
-		<li class="nav-item buttontab">
-			<a class="nav-link buttontab" href="social">Social</a>
-		</li>
-		<li class="nav-item buttontab">
-			<a class="nav-link buttontab" href="settings">Settings</a>
-		</li>
-	</ul>
-	</nav>
-	<div class="col-sm-9 col-md-10 pt-3" style="width:80%">
-		<router-outlet></router-outlet>
-	</div>
-</div>
-</div>
-</div>
-
-<div *ngIf="!auth.isLoggedIn">
-	<router-outlet></router-outlet>
-</div>
+<router-outlet></router-outlet>
 
 <br /><br />
