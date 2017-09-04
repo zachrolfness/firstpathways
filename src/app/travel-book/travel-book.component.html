@@ -1,1 +1,74 @@
-<h1 class="display-4">The Travel Book</h1>
+<div class="container">
+  <h1 class="display-4">The Travel Book</h1>
+  <p>
+    Search for all types of FIRST resources by name, author, or tag. All resources have been verified by a panel of experts to determine that they are of the highest of standards.
+  </p>
+
+  <hr/>
+
+  <div class="searchcontainer">
+
+    <!-- on default when nothing is searched show all resources in the database -->
+
+    <div class="txtsearch">
+      <form class="form-inline">
+        <input class="inptsearch" placeholder="Search by Document or Team Name">
+
+        <!-- button to search for documents in the database based on text input -->
+        <button class="btn btn-primary right" type="submit">Search</button>
+      </form>
+    </div>
+
+    <div class="tagsearch">
+
+    <!-- this is the tag input selection branch  -->
+    <div class="tagholder">
+    <tag-input [(ngModel)]='items'
+           [onlyFromAutocomplete]="true"
+           [maxItems]='3'
+           (onAdd)="tagUpdate($event)"
+           (onRemove)="tagUpdate($event)"
+           >
+        <tag-input-dropdown
+           [showDropdownIfEmpty]="true"
+           [autocompleteItems]="tags">
+        </tag-input-dropdown>
+
+      </tag-input>
+      <!-- button to search for documents in the database based on tag -->
+
+    </div>
+    <button class="btn btn-primary right" style="margin-top: 7px" type="submit">Search by Tag</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="container">
+  <!-- the resource card component is an easy way to make all the resources
+  look nice in a NG repeat. Just pass in the resource object you get from
+  the databse and have it display each value.
+
+  LIMIT TO ONLY SHOWING TEN RESOURCES PER PAGE BASED ON THE USER SEARCH -->
+  <resource-card></resource-card>
+
+  <resource-card></resource-card>
+
+  <!-- depending on how many resources based on the search, display how many pages -->
+
+  <nav>
+    <ul class="pagination justify-content-center">
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
+
+
+</div>

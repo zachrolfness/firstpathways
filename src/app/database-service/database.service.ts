@@ -11,6 +11,10 @@ export class DatabaseService {
 		return this.db.list('/PathwayTeams/' + branch);
 	}
 
+	public getTags(): FirebaseObjectObservable<any> {
+		return this.db.object('/Tags/');
+	}
+
 	public getResources(branch: string): FirebaseListObservable<any[]> {
 		return this.db.list('/Resources/' + branch);
 	}
