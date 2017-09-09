@@ -93,16 +93,18 @@ export class ResourcesComponent implements OnInit {
 		this.storage.uploadResource(this.auth.uid, this.file)
 			.then((downloadURL: string) => {
 
-				let push = this.Resources.push({
+				let pushKey: string;
+
+				this.Resources.push({
 					Name: this.resource.name,
 					Branch: this.resource.branch,
 					Description: this.resource.description,
 					User: this.uid,
 					URL: downloadURL,
 					// Tags: this.resource.tags
-				});
+				}).then((key) => pushKey = key);
 
-				this.UserResources.update(push.key(), true);
+				this.UserResources.update(pushKey, true);
 
 				this.resource = {
 					name: '',
