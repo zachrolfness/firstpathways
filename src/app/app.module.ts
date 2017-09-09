@@ -27,7 +27,7 @@ import * as firebase from 'firebase';
 import { TeamsComponent } from './teams/teams.component';
 import { ResourcesComponent } from './resources/resources.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { ResourcecardComponent } from './resourcecard/resourcecard.component';
+import { ResourceCardComponent } from './resource-card/resource-card.component';
 
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -59,7 +59,7 @@ firebase.initializeApp(environment.firebase);
 		TeamsComponent,
 		ResourcesComponent,
 		SidebarComponent,
-		ResourcecardComponent
+		ResourceCardComponent
 	],
 	bootstrap: [ AppComponent ],
 	providers: [

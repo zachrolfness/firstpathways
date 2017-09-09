@@ -29,20 +29,20 @@
 	<table class="table">
 		<thead class="thead-default">
 			<tr>
-				<th>Team Name</th>
 				<th>Team Number</th>
+				<th>Team Name</th>
 				<th>School</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let Team of PathwayTeams | async">
+			<tr *ngFor="let Team of UserTeams | async">
+				<td>{{getTeamNumber(Team)}}</td>
 				<td>
 					<span class="badge" [style.background-color]="getBadgeColor(Team.Branch)">
 						{{Team.Branch}}
 					</span>
 					{{Team.Name}}
 				</td>
-				<td>{{Team.Number}}</td>
 				<td>{{Team.School}}</td>
 			</tr>
 		</tbody>
@@ -72,20 +72,20 @@
 	<table class="table">
 		<thead class="thead-default">
 			<tr>
-				<th>Team Name</th>
 				<th>Team Number</th>
+				<th>Team Name</th>
 				<th>FIRST Branch</th>
 				<th>School</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let Team of PathwayTeams | async">
+			<tr *ngFor="let Team of UserTeams | async">
 				<th>
-					<input #name type="text" class="form-control" [ngModel]="Team.Name">
+					{{getTeamNumber(Team)}}
 				</th>
 				<th>
-					<input #number type="text" class="form-control" [ngModel]="Team.Number">
+					<input #name type="text" class="form-control" [ngModel]="Team.Name">
 				</th>
 				<th>
 					<input #branch type="text" class="form-control" [ngModel]="Team.Branch">
@@ -116,18 +116,18 @@
 			<h1 class="display-4">Add a Pathway Team</h1>
 		</div>
 		<div class="col-2" style="float: right">
-			<div class="btn-group">
-				<button (click)="showView()" class="btn btn-outline-primary">
-					View
-				</button>
-				<button (click)="showEdit()" class="btn btn-outline-primary">
-					Edit
-				</button>
-			</div>
+		<div class="btn-group">
+			<button (click)="showView()" class="btn btn-outline-primary">
+				View
+			</button>
+			<button (click)="showEdit()" class="btn btn-outline-primary">
+				Edit
+			</button>
+		</div>
 		</div>
 
 
-	<br />
+		<br />
 
 
 		<div class="col-8">
@@ -137,7 +137,6 @@
 				<div class="col-9">
 					<input type="text" id="name" class="form-control" [(ngModel)]="team.name">
 				</div>
-				<small class="form-text text-muted">We'll never share your email with anyone else.</small>
 			</div>
 
 			<div class="form-group">
@@ -145,12 +144,10 @@
 				<div class="col-9">
 					<input type="text" id="number" class="form-control" [(ngModel)]="team.number">
 				</div>
-				<small class="form-text text-muted">We'll never share your email with anyone else.</small>
 			</div>
 
-
-				<label class="col-3">Resource Branch</label>
-				<div class="col-9">
+			<label class="col-3">Resource Branch</label>
+			<div class="col-9">
 					<button type="button" class="btn btn-sm" (click)="selectBranch('FLL Jr')" [ngClass]="{'flljrbtn': isBranch('FLL Jr'), 'btn-success': isBranch('FLL Jr')}">
 						FLL Jr.
 					</button>
@@ -164,9 +161,8 @@
 						FRC
 					</button>
 					<br/>
-					<small id="branchHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-				</div>
-
+				<small id="branchHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+			</div>
 
 			<br />
 
@@ -180,7 +176,7 @@
 		</div>
 		<div class="col-4">
 			<button class="btn btn-block btn-success" (click)="addTeam()">
-					Add Team
+				Add Team
 			</button>
 		</div>
 	</div>

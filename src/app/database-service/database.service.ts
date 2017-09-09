@@ -7,16 +7,16 @@ export class DatabaseService {
 
 	constructor(private db: AngularFireDatabase) { }
 
-	public getTeams(branch: string): FirebaseListObservable<any[]> {
-		return this.db.list('/PathwayTeams/' + branch);
+	public getTeams(): FirebaseListObservable<any[]> {
+		return this.db.list('/PathwayTeams/');
 	}
 
 	public getTags(): FirebaseObjectObservable<any> {
 		return this.db.object('/Tags/');
 	}
 
-	public getResources(branch: string): FirebaseListObservable<any[]> {
-		return this.db.list('/Resources/' + branch);
+	public getResources(): FirebaseListObservable<any[]> {
+		return this.db.list('/Resources/');
 	}
 
 	public getUser(uid: string): FirebaseObjectObservable<any> {
@@ -28,7 +28,37 @@ export class DatabaseService {
 	}
 
 	public getUserResources(uid: string): FirebaseListObservable<any[]> {
-		return this.db.list('/Users/' + uid + '/Resources');
+		return this.db.list('/Resources', {
+			query: {
+				orderByChild: 'User',
+				equalTo: uid
+			}
+		});
+	}
+
+	public getUserName(uid: string): Promise<string> {
+		return new Promise((resolve, reject) => {
+			this.db.object('/Users/' + uid + '/Name').subscribe((snapshot) => {
+				resolve(snapshot.$value);
+			});
+		})
+	}
+
+	public getTagsObject() {
+		return new Promise((resolve, reject) => {
+			this.getTags().subscribe(resolve);
+		});
+	}
+
+	public searchResources(start, end): FirebaseListObservable<any[]> {
+		return this.db.list('/Resources/', {
+			query: {
+				orderByChild: 'Name',
+				limitTo: 10,
+				startAt: start,
+				endAt: end
+			}
+		});
 	}
 
 }

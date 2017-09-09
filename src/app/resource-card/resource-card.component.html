@@ -1,0 +1,32 @@
+<div class="container">
+
+	<div class="cardhoriz">
+		<!-- I will figure out how to do the image preview so don't worry -->
+		<div class="cardimg">
+		</div>
+
+		<div class="cardstacked">
+			<div class="cardtitle">
+				<!-- color of the title must be based on branch -->
+				{{resource.Name}}
+			</div>
+
+			<div class="cardcontent">
+				<b><p>Created by: {{username}}</p></b>
+				<p>{{resource.Description}}</p>
+			</div>
+			<div class="cardaction">
+				<a class="btn btn-secondary btn-sm" [href]="resource.URL" target="_blank">Download</a>
+
+				<div class="cardtags">
+					<!-- Pass tags  -->
+					Tags:
+					<span class="badge badge-primary">FLLjr</span>
+					<span class="badge badge-primary">Team Building</span>
+					<span class="badge badge-primary">Activities</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+  </div>

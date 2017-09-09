@@ -38,7 +38,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let Resource of Resources | async">
+			<tr *ngFor="let Resource of UserResources | async">
 				<td>
 					<span class="badge" [ngClass]="getBadgeColor(Resource.Branch)">
 						{{Resource.Branch}}
@@ -89,7 +89,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let Resource of Resources | async">
+			<tr *ngFor="let Resource of UserResources | async">
 				<th>
 					<input #name type="text" class="form-control" [ngModel]="Resource.Name">
 				</th>
