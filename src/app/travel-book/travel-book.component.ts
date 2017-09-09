@@ -29,17 +29,23 @@ export class TravelBookComponent implements OnInit {
 
 	query;
 
-	tags = ['FRC', 'FTC', 'FLL', 'FLL Jr.', 'General'];
+	tags = ['FRC', 'FTC', 'FLL', 'FLL Jr', 'General'];
+
+	equalTo = new Subject();
 
 	constructor(private db: DatabaseService, private ts: TagsService) {}
 
 	ngOnInit() {
 		this.tagUpdate(0);
 
-		setTimeout(() => this.searchTitle(), 1000)
+		setTimeout(() => this.searchTitle(), 1000);
 
 		this.db.searchResources(this.startAt, this.endAt)
 			.subscribe((resources) => this.resources = resources);
+
+		this.db.searchTag(this.equalTo)
+			.subscribe((resources) => this.resources = resources);
+
 	}
 
 	tagUpdate(event): void {
@@ -52,7 +58,7 @@ export class TravelBookComponent implements OnInit {
 	}
 
 	searchTags() {
-		console.log(this.tags);
+		this.equalTo.next(this.tags[0]);
 	}
 
 }

@@ -16,6 +16,7 @@ import { DatabaseService } from '../database-service/database.service';
 @Component({
 	selector: 'resource-card',
 	templateUrl: './resource-card.component.html',
+	styleUrls: ['./resource-card.component.css']
 })
 export class ResourceCardComponent implements OnInit {
 
@@ -28,5 +29,25 @@ export class ResourceCardComponent implements OnInit {
 	ngOnInit() {
 		this.db.getUserName(this.resource.User)
 			.then((username) => this.username = username);
+	}
+
+	getHeadingColor(branch: string): string {
+		switch(branch) {
+			case 'FRC': return 'bg-primary';
+			case 'FTC': return 'bg-warning';
+			case 'FLL': return 'bg-danger';
+			case 'FLL Jr': return 'bg-success';
+			default: return 'bg-primary';
+		}
+	}
+
+	getBadgeColor(branch: string): string {
+		switch(branch) {
+			case 'FRC': return 'badge-primary';
+			case 'FTC': return 'badge-warning';
+			case 'FLL': return 'badge-danger';
+			case 'FLL Jr': return 'badge-success';
+			default: return 'badge-primary';
+		}
 	}
 }

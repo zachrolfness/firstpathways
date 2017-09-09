@@ -38,7 +38,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let Resource of UserResources | async">
+			<tr *ngFor="let Resource of Resources | async">
 				<td>
 					<span class="badge" [ngClass]="getBadgeColor(Resource.Branch)">
 						{{Resource.Branch}}
@@ -49,11 +49,17 @@
 					</a>
 				</td>
 				<td>{{Resource.Description}}</td>
-				<!-- <td>
-					<div *ngFor="let Tag of Resource.Tags | tags">
-						<span class="badge">{{Tag}}</span>
+				<td>
+					<div *ngFor="let Tag of Resource.Tags">
+						<span class="badge" [ngClass]="getBadgeColor(Resource.Branch)">
+							{{Tag}}
+						</span>
 					</div>
-				</td> -->
+				</td>
+
+				<!-- <span *ngFor="let Tag of resource.Tags" class="badge" [ngClass]="getBadgeColor(resource.Branch)">
+					{{Tag}}
+				</span> -->
 			</tr>
 		</tbody>
 	</table>
@@ -81,36 +87,39 @@
 	<table class="table">
 		<thead class="thead-default">
 			<tr>
+				<th>Branch</th>
 				<th>Resource Name</th>
-				<th>FIRST Branch</th>
 				<th>Description</th>
-				<!-- <th>Tags</th> -->
+				<th>Tags</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let Resource of UserResources | async">
-				<th>
-					<input #name type="text" class="form-control" [ngModel]="Resource.Name">
-				</th>
+			<tr *ngFor="let Resource of Resources | async">
 				<th>
 					<input #branch type="text" class="form-control" [ngModel]="Resource.Branch">
 				</th>
 				<th>
+					<input #name type="text" class="form-control" [ngModel]="Resource.Name">
+				</th>
+				<th>
 					<input #description type="text" class="form-control" [ngModel]="Resource.Description">
 				</th>
-				<!-- <th>
-					<div *ngFor="let Tag of "
-					<input #tags type="text" class="form-control" [ngModel]="Resource.School">
-				</th> -->
+				<th>
+					<div *ngFor="let Tag of Resource.Tags">
+						<span class="badge" [ngClass]="getBadgeColor(Resource.Branch)">
+							{{Tag}}
+						</span>
+					</div>
+				</th>
 				<th>
 					<div class="btn-group-vertical">
-					<button type="button" class="btn btn-outline-primary" (click)="saveResource(Resource.$key, name.value, branch.value, description.value)">
-						Save
-					</button>
-					<button type="button" class="btn btn-outline-primary" (click)="removeResource(Resource.$key)">
-						Remove
-					</button>
+						<button type="button" class="btn btn-outline-primary" (click)="saveResource(Resource.$key, name.value, branch.value, description.value)">
+							Save
+						</button>
+						<button type="button" class="btn btn-outline-primary" (click)="removeResource(Resource.$key)">
+							Remove
+						</button>
 					</div>
 				</th>
 			</tr>
@@ -148,23 +157,21 @@
 				</div>
 			</div>
 
-
-
-				<label class="col-3">Resource Branch</label>
-				<div class="col-9">
-					<button type="button" class="btn btn-sm" (click)="selectBranch('FLL Jr')" [ngClass]="{'btn-outline-success': !isBranch('FLL Jr'), 'btn-success': isBranch('FLL Jr')}">
-						FLL Jr.
-					</button>
-					<button type="button" class="btn btn-sm" (click)="selectBranch('FLL')" [ngClass]="{'btn-outline-danger': !isBranch('FLL'), 'btn-danger': isBranch('FLL')}">
-						FLL
-					</button>
-					<button type="button" class="btn btn-sm" (click)="selectBranch('FTC')" [ngClass]="{'btn-outline-warning': !isBranch('FTC'), 'btn-warning': isBranch('FTC')}">
-						FTC
-					</button>
-					<button type="button" class="btn btn-sm" (click)="selectBranch('FRC')" [ngClass]="{'btn-outline-primary': !isBranch('FRC'), 'btn-primary': isBranch('FRC')}">
-						FRC
-					</button>
-				</div>
+			<label class="col-3">Resource Branch</label>
+			<div class="col-9">
+				<button type="button" class="btn btn-sm" (click)="selectBranch('FLL Jr')" [ngClass]="{'btn-outline-success': !isBranch('FLL Jr'), 'btn-success': isBranch('FLL Jr')}">
+					FLL Jr
+				</button>
+				<button type="button" class="btn btn-sm" (click)="selectBranch('FLL')" [ngClass]="{'btn-outline-danger': !isBranch('FLL'), 'btn-danger': isBranch('FLL')}">
+					FLL
+				</button>
+				<button type="button" class="btn btn-sm" (click)="selectBranch('FTC')" [ngClass]="{'btn-outline-warning': !isBranch('FTC'), 'btn-warning': isBranch('FTC')}">
+					FTC
+				</button>
+				<button type="button" class="btn btn-sm" (click)="selectBranch('FRC')" [ngClass]="{'btn-outline-primary': !isBranch('FRC'), 'btn-primary': isBranch('FRC')}">
+					FRC
+				</button>
+			</div>
 
 			<!-- <div class="form-group">
 				<label for="number" class="col-3 col-form-label">Add Tags</label>
@@ -172,6 +179,28 @@
 					<input type="text" id="number" class="form-control" [(ngModel)]="resource.tags">
 				</div>
 			</div> -->
+
+			<br />
+			<br />
+
+			<label class="col-form-label">Add Tags</label>
+			<tag-input [(ngModel)]='items'
+				[onlyFromAutocomplete]="true"
+				[maxItems]='3'
+				(onAdd)="tagUpdate($event)"
+				(onRemove)="tagUpdate($event)">
+
+				<tag-input-dropdown
+					[showDropdownIfEmpty]="true"
+					[autocompleteItems]="tags">
+				</tag-input-dropdown>
+
+			</tag-input>
+
+			<button class="btn btn-block btn-success" (click)="addTag()">
+				Add Tag
+			</button>
+
 
 			<br />
 

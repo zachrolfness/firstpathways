@@ -15,7 +15,7 @@ export class TagsService {
 
 	private getTags(items, snapshot): string[] {
 		switch(items.length) {
-			case 0: return ['FRC', 'FTC', 'FLL', 'FLLjr', 'General'];
+			case 0: return ['FRC', 'FTC', 'FLL', 'FLL Jr', 'General'];
 			case 1: return Object.keys(snapshot[items[0].value]);
 			case 2: return (<any>Object).values(snapshot[items[0].value][items[1].value]);
 			case 3: return [items[items.length-1].value];

@@ -6,7 +6,7 @@
 		</div>
 
 		<div class="cardstacked">
-			<div class="cardtitle">
+			<div class="cardtitle"  [ngClass]="getBadgeColor(resource.Branch)">
 				<!-- color of the title must be based on branch -->
 				{{resource.Name}}
 			</div>
@@ -21,9 +21,9 @@
 				<div class="cardtags">
 					<!-- Pass tags  -->
 					Tags:
-					<span class="badge badge-primary">FLLjr</span>
-					<span class="badge badge-primary">Team Building</span>
-					<span class="badge badge-primary">Activities</span>
+					<span *ngFor="let Tag of resource.Tags" class="badge" [ngClass]="getBadgeColor(resource.Branch)">
+						{{Tag}}
+					</span>
 				</div>
 			</div>
 		</div>

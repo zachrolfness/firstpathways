@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
 
+import { Subject } from 'rxjs/Subject';
+
 @Injectable()
 export class DatabaseService {
 
@@ -27,7 +29,7 @@ export class DatabaseService {
 		return this.db.list('/Users/' + uid + '/PathwayTeams');
 	}
 
-	public getUserResources(uid: string): FirebaseListObservable<any[]> {
+	public getResourcesByUser(uid: string): FirebaseListObservable<any[]> {
 		return this.db.list('/Resources', {
 			query: {
 				orderByChild: 'User',
@@ -57,6 +59,15 @@ export class DatabaseService {
 				limitTo: 10,
 				startAt: start,
 				endAt: end
+			}
+		});
+	}
+
+	public searchTag(equalTo): FirebaseListObservable<any[]> {
+		return this.db.list('/Resources', {
+			query: {
+				orderByChild: 'Tags/0',
+				equalTo: equalTo
 			}
 		});
 	}
