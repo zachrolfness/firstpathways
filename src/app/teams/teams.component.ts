@@ -21,6 +21,7 @@ export class TeamsComponent implements OnInit {
 		school: ''
 	};
 
+	UserTeams: FirebaseListObservable<any[]>;
 	PathwayTeams: FirebaseListObservable<any[]>;
 
 	view: boolean = true;
@@ -31,8 +32,9 @@ export class TeamsComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		// this.PathwayTeams = this.db.getTeams();
 		this.auth.getUID().then((uid: string) => {
-			this.PathwayTeams = this.db.getUserTeams(uid);
+			this.UserTeams = this.db.getUserTeams(uid);
 		});
 	}
 
@@ -74,29 +76,17 @@ export class TeamsComponent implements OnInit {
 		return branch == this.team.branch;
 	}
 
-  addTeam(){
-    if(this.team.name){
-      this.addTeamDB();
-    }else{
-      console.log("no name")
-    }
+	getTeamNumber(Team): string {
+		return Team.$key.split(':').pop();
+	}
 
-  }
+	addTeam() {
+		this.UserTeams.update(this.team.branch + ':' + this.team.number, true);
 
-
-	addTeamDB() {
-		this.PathwayTeams.push({
+		this.db.getTeams().update(this.team.branch + ':' + this.team.number, {
 			Name: this.team.name,
-			Number: this.team.number,
-			Branch: this.team.branch,
 			School: this.team.school
 		});
-
-		this.db.getTeams(this.team.branch)
-			.update('' + this.team.number, {
-				Name: this.team.name,
-				School: this.team.school
-			});
 
 		this.team = {
 			name: '',
@@ -105,11 +95,11 @@ export class TeamsComponent implements OnInit {
 			school: ''
 		};
 
-    this.showView();
+		this.showView();
 	}
 
 	saveTeam(key: string, name: string, number: number, branch: string, school: string) {
-		this.PathwayTeams.update(key, {
+		this.UserTeams.update(key, {
 			Name: name,
 			Number: number,
 			Branch: branch,
@@ -119,7 +109,7 @@ export class TeamsComponent implements OnInit {
 
 	removeTeam(key: string) {
 		if(key) {
-			this.PathwayTeams.remove(key);
+			this.UserTeams.remove(key);
 		} else {
 			console.log('Team key does not exist.');
 		}

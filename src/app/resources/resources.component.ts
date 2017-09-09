@@ -20,10 +20,13 @@ export class ResourcesComponent implements OnInit {
 		branch: '',
 		description: '',
 		url: '',
-		tags: ''
+		// tags: []
 	};
 
+	UserResources: FirebaseListObservable<any[]>;
 	Resources: FirebaseListObservable<any[]>;
+
+	uid: string;
 
 	file: File;
 
@@ -38,8 +41,10 @@ export class ResourcesComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
+		this.Resources = this.db.getResources();
 		this.auth.getUID().then((uid: string) => {
-			this.Resources = this.db.getUserResources(uid);
+			this.UserResources = this.db.getUserResources(uid);
+			this.uid = uid;
 		});
 	}
 
@@ -62,14 +67,12 @@ export class ResourcesComponent implements OnInit {
 	}
 
 	getBadgeColor(branch: string): string {
-		if(branch == 'FRC') {
-			return 'badge-primary';
-		} else if(branch == 'FTC') {
-			return 'badge-warning';
-		} else if(branch == 'FLL') {
-			return 'badge-danger';
-		} else if(branch == 'FLL Jr') {
-			return 'badge-success';
+		switch(branch) {
+			case 'FRC': return 'badge-primary';
+			case 'FTC': return 'badge-warning';
+			case 'FLL': return 'badge-danger';
+			case 'FLL Jr': return 'badge-success';
+			default: break;
 		}
 	}
 
@@ -90,27 +93,23 @@ export class ResourcesComponent implements OnInit {
 		this.storage.uploadResource(this.auth.uid, this.file)
 			.then((downloadURL: string) => {
 
-				this.Resources.push({
+				let push = this.Resources.push({
 					Name: this.resource.name,
 					Branch: this.resource.branch,
 					Description: this.resource.description,
+					User: this.uid,
 					URL: downloadURL,
-					Tags: this.resource.tags
+					// Tags: this.resource.tags
 				});
 
-				this.db.getResources(this.resource.branch).push({
-					Name: this.resource.name,
-					Description: this.resource.description,
-					URL: downloadURL,
-					Tags: this.resource.tags
-				});
+				this.UserResources.update(push.key(), true);
 
 				this.resource = {
 					name: '',
 					branch: '',
 					description: '',
 					url: '',
-					tags: ''
+					// tags: []
 				};
 
 				this.file = null;
@@ -119,7 +118,7 @@ export class ResourcesComponent implements OnInit {
 	}
 
 	saveResource(key: string, name: string, branch: string, description: string) {
-		this.Resources.update(key, {
+		this.UserResources.update(key, {
 			Name: name,
 			Branch: branch,
 			Description: description
@@ -129,7 +128,7 @@ export class ResourcesComponent implements OnInit {
 
 	removeResource(key: string) {
 		if(key) {
-			this.Resources.remove(key);
+			this.UserResources.remove(key);
 		} else {
 			console.log('Resource key does not exist.');
 		}
