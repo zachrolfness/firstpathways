@@ -5,6 +5,7 @@ import { FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/d
 import { AuthService } from '../auth-service/auth.service';
 import { DatabaseService } from '../database-service/database.service';
 import { StorageService } from '../storage-service/storage.service';
+import { TagsService } from '../tags-service/tags.service';
 
 import { Resource } from '../data-models/resource';
 
@@ -20,10 +21,9 @@ export class ResourcesComponent implements OnInit {
 		branch: '',
 		description: '',
 		url: '',
-		// tags: []
+		tags: []
 	};
 
-	UserResources: FirebaseListObservable<any[]>;
 	Resources: FirebaseListObservable<any[]>;
 
 	uid: string;
@@ -34,16 +34,14 @@ export class ResourcesComponent implements OnInit {
 	edit: boolean = false;
 	add: boolean = false;
 
-	constructor(
-		public auth: AuthService,
-		private db: DatabaseService,
-		private storage: StorageService
-	) {}
+	items = [];
+	tags = ['FRC', 'FTC', 'FLL', 'FLL Jr', 'General'];
+
+	constructor(public auth: AuthService, private db: DatabaseService, private storage: StorageService, private ts: TagsService) {}
 
 	ngOnInit() {
-		this.Resources = this.db.getResources();
 		this.auth.getUID().then((uid: string) => {
-			this.UserResources = this.db.getUserResources(uid);
+			this.Resources = this.db.getResourcesByUser(uid);
 			this.uid = uid;
 		});
 	}
@@ -72,7 +70,7 @@ export class ResourcesComponent implements OnInit {
 			case 'FTC': return 'badge-warning';
 			case 'FLL': return 'badge-danger';
 			case 'FLL Jr': return 'badge-success';
-			default: break;
+			default: return 'badge-primary';
 		}
 	}
 
@@ -84,43 +82,48 @@ export class ResourcesComponent implements OnInit {
 		this.resource.branch = branch;
 	}
 
+	tagUpdate(event): void {
+		this.ts.tagsUpdate(this.items).then((tags) => this.tags = tags);
+	}
+
+	addTag() {
+		this.resource.tags.push(this.tags[0]);
+		this.items = [];
+		this.tags = [];
+	}
+
 	uploadFile(file: File) {
 		this.file = file;
-		console.log(file);
 	}
 
 	addResource() {
-		this.storage.uploadResource(this.auth.uid, this.file)
-			.then((downloadURL: string) => {
-
-				let pushKey: string;
+		// this.storage.uploadResource(this.auth.uid, this.file)
+		// 	.then((downloadURL: string) => {
 
 				this.Resources.push({
 					Name: this.resource.name,
 					Branch: this.resource.branch,
 					Description: this.resource.description,
 					User: this.uid,
-					URL: downloadURL,
-					// Tags: this.resource.tags
-				}).then((key) => pushKey = key);
-
-				this.UserResources.update(pushKey, true);
+					// URL: downloadURL,
+					Tags: this.resource.tags
+				});
 
 				this.resource = {
 					name: '',
 					branch: '',
 					description: '',
 					url: '',
-					// tags: []
+					tags: []
 				};
 
 				this.file = null;
 
-			});
+			// });
 	}
 
 	saveResource(key: string, name: string, branch: string, description: string) {
-		this.UserResources.update(key, {
+		this.Resources.update(key, {
 			Name: name,
 			Branch: branch,
 			Description: description
@@ -130,7 +133,7 @@ export class ResourcesComponent implements OnInit {
 
 	removeResource(key: string) {
 		if(key) {
-			this.UserResources.remove(key);
+			this.Resources.remove(key);
 		} else {
 			console.log('Resource key does not exist.');
 		}

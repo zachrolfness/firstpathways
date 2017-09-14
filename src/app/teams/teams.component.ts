@@ -4,6 +4,7 @@ import { FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/d
 
 import { AuthService } from '../auth-service/auth.service';
 import { DatabaseService } from '../database-service/database.service';
+import { BlueAllianceService } from '../blue-alliance-service/blue-alliance.service';
 
 import { Team } from '../data-models/team';
 
@@ -28,10 +29,12 @@ export class TeamsComponent implements OnInit {
 	edit: boolean = false;
 	add: boolean = false;
 
-	constructor(public auth: AuthService, private db: DatabaseService) {
+	constructor(public auth: AuthService, private db: DatabaseService, private blueApi: BlueAllianceService) {
 	}
 
 	ngOnInit() {
+		this.blueApi.getTeam(1165).then(console.log);
+
 		// this.PathwayTeams = this.db.getTeams();
 		this.auth.getUID().then((uid: string) => {
 			this.UserTeams = this.db.getUserTeams(uid);

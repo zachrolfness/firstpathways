@@ -22,6 +22,8 @@ import { SignUpComponent } from './signup/signup.component'
 import { AuthService } from './auth-service/auth.service';
 import { DatabaseService } from './database-service/database.service';
 import { StorageService } from './storage-service/storage.service';
+import { BlueAllianceService } from './blue-alliance-service/blue-alliance.service';
+import { TagsService } from './tags-service/tags.service';
 
 import * as firebase from 'firebase';
 import { TeamsComponent } from './teams/teams.component';
@@ -65,7 +67,9 @@ firebase.initializeApp(environment.firebase);
 	providers: [
 		AuthService,
 		DatabaseService,
-		StorageService
+		StorageService,
+		BlueAllianceService,
+		TagsService
 	]
 })
 export class AppModule {}

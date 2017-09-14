@@ -3,5 +3,5 @@ export interface Resource {
 	branch: string;
 	description: string;
 	url: string;
-	// tags: Array<string>;
+	tags?: string[];
 }
