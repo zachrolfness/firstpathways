@@ -1,0 +1,22 @@
+<div class="container" style="width: 80%; margin-left:10%; margin-right:10; margin-bottom:15px;">
+  <h1 class="display-4">FIRST Pathways</h1>
+  <hr/>
+
+  <div class="btn-group" role="group" style="width: 100%">
+    <button type="button" class="btn btn-secondary navbut" (click)="btnModel()">The Pathways Model</button>
+    <button type="button" class="btn btn-secondary navbut" (click)="btnMap()">The Pathways Map</button>
+    <button type="button" class="btn btn-secondary navbut" (click)="btnApply()">Apply for Mentorship</button>
+  </div>
+</div>
+
+<div *ngIf="map">
+  <pathways-map></pathways-map>
+</div>
+
+<div class="container" *ngIf="model">
+  <pathways-model></pathways-model>
+</div>
+
+<div class="container" *ngIf="apply">
+  <pathways-apply></pathways-apply>
+</div>

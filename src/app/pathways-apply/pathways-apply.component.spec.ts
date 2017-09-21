@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AboutComponent } from './about.component';
+import { PathwaysApplyComponent } from './pathways-apply.component';
 
-describe('AboutComponent', () => {
-  let component: AboutComponent;
-  let fixture: ComponentFixture<AboutComponent>;
+describe('PathwaysApplyComponent', () => {
+  let component: PathwaysApplyComponent;
+  let fixture: ComponentFixture<PathwaysApplyComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AboutComponent ]
+      declarations: [ PathwaysApplyComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AboutComponent);
+    fixture = TestBed.createComponent(PathwaysApplyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

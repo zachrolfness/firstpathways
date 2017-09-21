@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-
 import { AuthService } from '../auth-service/auth.service';
 import { Router }   from '@angular/router';
+import {} from '@types/googlemaps';
 
 @Component({
 	selector: 'app-login',
@@ -14,21 +14,46 @@ export class SignUpComponent implements OnInit {
 	username: string;
 	email: string;
 	password: string;
-
 	roles: string[];
+	loc: string;
+
 
 	constructor(public auth: AuthService, private router: Router) {
 		this.roles = ['FRC Team', 'FTC Team', 'Adult Mentor'];
 
-		this.username = 'Kesav Kadalazhi';
+		this.username = '';
 	}
 
+	geocode(address){
+    return new Promise(function(resolve,reject){
+      var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            resolve(results);
+          } else {
+            this.lat = 0;
+          }
+        });
+      });
+  }
 
 	signUp(username: string, email: string, password: string, role: string) {
-		this.auth.signUp(username, email, password);
+
 
 		email = '';
 		password = '';
+
+		//it's broken right now because of it not finding the google geocode but push the promise results to the sign up method
+		this.geocode(this.loc).then(results => {
+
+			var lat = results[0].geometry.location.lat();
+			var lng = results[0].geometry.location.lng();
+
+			//include adding the lat and lng to the signup account
+			this.auth.signUp(username, email, password);
+
+    });
+
 
 		this.goToProfile();
 	}
