@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule }   from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
+import { PathwaysComponent } from './pathways/pathways.component';
 import { StartComponent } from './start/start.component';
 import { TravelBookComponent } from './travel-book/travel-book.component';
 
@@ -20,7 +20,7 @@ const routes = [{
 	component: HomeComponent
 }, {
 	path: 'about',
-	component: AboutComponent
+	component: PathwaysComponent
 }, {
 	path: 'start',
 	component: StartComponent
