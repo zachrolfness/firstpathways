@@ -17,6 +17,8 @@ export class AuthService {
 	public isLoggedIn: boolean;
 
 	constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase) {
+		this.isLoggedIn = false;
+
 		this.afAuth.authState.subscribe((auth) => {
 			if(auth) {
 				this.isLoggedIn = true;
