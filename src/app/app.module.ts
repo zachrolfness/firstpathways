@@ -39,6 +39,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PathwaysMapComponent } from './pathways-map/pathways-map.component';
 import { PathwaysModelComponent } from './pathways-model/pathways-model.component';
 import { PathwaysApplyComponent } from './pathways-apply/pathways-apply.component';
+import {} from '@types/googlemaps';
 
 firebase.initializeApp(environment.firebase);
 
@@ -53,7 +54,7 @@ firebase.initializeApp(environment.firebase);
 		AppRoutingModule,
 		TagInputModule,
 		BrowserAnimationsModule,
-		NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyBHTzUv5LSFMiAnk16KBJxHvjwknwBeHiw'})
+		NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyCkgR8jyI8fjSdFd2E3F7UZHhwWfGsp270'})
 	],
 	declarations: [
 		AppComponent,

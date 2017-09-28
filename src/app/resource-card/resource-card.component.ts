@@ -33,20 +33,20 @@ export class ResourceCardComponent implements OnInit {
 
 	getHeadingColor(branch: string): string {
 		switch(branch) {
-			case 'FRC': return 'bg-primary';
-			case 'FTC': return 'bg-warning';
-			case 'FLL': return 'bg-danger';
-			case 'FLL Jr': return 'bg-success';
+			case 'FRC': return 'frccolor';
+			case 'FTC': return 'ftccolor';
+			case 'FLL': return 'fllcolor';
+			case 'FLL Jr': return 'flljrcolor';
 			default: return 'bg-primary';
 		}
 	}
 
 	getBadgeColor(branch: string): string {
 		switch(branch) {
-			case 'FRC': return 'badge-primary';
-			case 'FTC': return 'badge-warning';
-			case 'FLL': return 'badge-danger';
-			case 'FLL Jr': return 'badge-success';
+			case 'FRC': return 'frccolor';
+			case 'FTC': return 'ftccolor';
+			case 'FLL': return 'fllcolor';
+			case 'FLL Jr': return 'flljrcolor';
 			default: return 'badge-primary';
 		}
 	}
