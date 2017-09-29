@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 
 import { AuthService } from './auth-service/auth.service';
+import {} from '@types/googlemaps';
+declare var google: any;
+
+
 
 @Component({
   selector: 'app-root',

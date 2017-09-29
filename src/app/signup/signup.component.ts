@@ -5,6 +5,9 @@ import { Router }   from '@angular/router';
 import { NguiMapModule} from '@ngui/map';
 import {} from '@types/googlemaps';
 
+
+
+
 @Component({
 	selector: 'app-login',
 	templateUrl: './signup.component.html',
@@ -17,17 +20,18 @@ export class SignUpComponent implements OnInit {
 	password: string;
 	roles: string[];
 	loc: string;
-	geocoder;
 
 	constructor(public auth: AuthService, private router: Router) {
 		this.roles = ['FRC Team', 'FTC Team', 'Adult Mentor'];
-		this.geocoder = new google.maps.Geocoder();
 		this.username = '';
 	}
 
+
+
 	geocode(address){
     return new Promise(function(resolve,reject){
-        this.geocoder.geocode({'address': address}, function(results, status) {
+			var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({'address': address}, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             resolve(results);
           } else {
@@ -37,19 +41,9 @@ export class SignUpComponent implements OnInit {
       });
   }
 
-	temp(){
-		this.geocode(this.loc).then(results => {
-
-			var lat = results[0].geometry.location.lat();
-			var lng = results[0].geometry.location.lng();
-		});
-	}
-
 	signUp(username: string, email: string, password: string, role: string) {
 		email = '';
 		password = '';
-
-		//it's broken right now because of it not finding the google geocode but push the promise results to the sign up method
 		this.geocode(this.loc).then(results => {
 
 			var lat = results[0].geometry.location.lat();
@@ -69,6 +63,7 @@ export class SignUpComponent implements OnInit {
 	}
 
 	ngOnInit() {
+
 	}
 
 }

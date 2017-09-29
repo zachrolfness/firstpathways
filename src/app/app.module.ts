@@ -32,7 +32,6 @@ import { ResourcesComponent } from './resources/resources.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ResourceCardComponent } from './resource-card/resource-card.component';
 
-import {} from '@types/googlemaps';
 
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
