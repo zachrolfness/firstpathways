@@ -10,12 +10,12 @@
 	<div class="searchcontainer row">
 
 		<!-- on default when nothing is searched show all resources in the database -->
-		<div class="txtsearch col-6">
+		<div class="txtsearch col-md-6">
 			<div class="row">
-				<div class="col-10">
-					<input type="text" [(ngModel)]="query" class="form-control" placeholder="Search by Document or Team Name">
+				<div class="col-md-10">
+					<input type="text" [(ngModel)]="query" class="form-control inptsearch" placeholder="Search by Document or Team Name">
 				</div>
-				<div class="col-2">
+				<div class="col-md-2">
 					<!-- button to search for documents in the database based on text input -->
 					<button class="btn btn-primary right" type="submit" (click)="searchTitle()">
 						Search
@@ -24,11 +24,11 @@
 			</div>
 		</div>
 
-		<div class="tagsearch col-6">
+		<div class="tagsearch col-md-6">
 
 			<!-- this is the tag input selection branch  -->
 			<div class="row">
-				<div class="col-8">
+				<div class="col-md-10">
 					<div class="tagholder">
 						<tag-input [(ngModel)]='items'
 							[onlyFromAutocomplete]="true"
@@ -45,7 +45,7 @@
 					</div>
 
 				</div>
-				<div class="col-4">
+				<div class="col-md-2">
 					<!-- button to search for documents in the database based on tag -->
 					<button class="btn btn-primary right" (click)="searchTags()" style="margin-top: 7px" type="submit">
 						Search by Tag
@@ -73,20 +73,14 @@
 	<!-- <resource-card></resource-card> -->
 
 	<!-- depending on how many resources based on the search, display how many pages -->
+	<div *ngIf="!rExist()">
+		No Resources
+	</div>
 
-	<nav>
-		<ul class="pagination justify-content-center">
-			<li class="page-item disabled">
-				<a class="page-link" href="#" tabindex="-1">Previous</a>
-			</li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item">
-				<a class="page-link" href="#">Next</a>
-			</li>
-		</ul>
-	</nav>
+	<button (click)='prevPage()' [disabled] = "!prevKeys?.length"> Prev </button>
+	<button (click)='nextPage()' [disabled] = "!nextKey"> Next </button>
+
+
 
 
 </div>
