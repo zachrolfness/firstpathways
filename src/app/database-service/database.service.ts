@@ -29,6 +29,10 @@ export class DatabaseService {
 		return this.db.list('/Users/' + uid + '/PathwayTeams');
 	}
 
+  public getMapUsers(): FirebaseListObservable<any[]>{
+    return this.db.list('/PathwayTeams');
+  }
+
 	public getResourcesByUser(uid: string): FirebaseListObservable<any[]> {
 		return this.db.list('/Resources', {
 			query: {

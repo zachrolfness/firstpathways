@@ -6,6 +6,7 @@ import { AuthService } from '../auth-service/auth.service';
 import { DatabaseService } from '../database-service/database.service';
 import { StorageService } from '../storage-service/storage.service';
 import { TagsService } from '../tags-service/tags.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 import { Resource } from '../data-models/resource';
 
@@ -37,7 +38,8 @@ export class ResourcesComponent implements OnInit {
 	items = [];
 	tags = ['FRC', 'FTC', 'FLL', 'FLL Jr', 'General'];
 
-	constructor(public auth: AuthService, private db: DatabaseService, private storage: StorageService, private ts: TagsService) {}
+	constructor(public auth: AuthService, private db: DatabaseService, private storage: StorageService, private ts: TagsService,
+	private flash: FlashMessagesService) {}
 
 	ngOnInit() {
 		this.auth.getUID().then((uid: string) => {
@@ -66,10 +68,10 @@ export class ResourcesComponent implements OnInit {
 
 	getBadgeColor(branch: string): string {
 		switch(branch) {
-			case 'FRC': return 'badge-primary';
-			case 'FTC': return 'badge-warning';
-			case 'FLL': return 'badge-danger';
-			case 'FLL Jr': return 'badge-success';
+			case 'FRC': return 'FRC';
+			case 'FTC': return 'FTC';
+			case 'FLL': return 'FLL';
+			case 'FLLJr': return 'FLLJr';
 			default: return 'badge-primary';
 		}
 	}
@@ -97,15 +99,15 @@ export class ResourcesComponent implements OnInit {
 	}
 
 	addResource() {
-		// this.storage.uploadResource(this.auth.uid, this.file)
-		// 	.then((downloadURL: string) => {
+		 this.storage.uploadResource(this.auth.uid, this.file)
+			.then((downloadURL: string) => {
 
 				this.Resources.push({
 					Name: this.resource.name,
 					Branch: this.resource.branch,
 					Description: this.resource.description,
 					User: this.uid,
-					// URL: downloadURL,
+					URL: downloadURL,
 					Tags: this.resource.tags
 				});
 
@@ -118,8 +120,8 @@ export class ResourcesComponent implements OnInit {
 				};
 
 				this.file = null;
-
-			// });
+				this.showView();
+			});
 	}
 
 	saveResource(key: string, name: string, branch: string, description: string) {
@@ -128,6 +130,8 @@ export class ResourcesComponent implements OnInit {
 			Branch: branch,
 			Description: description
 		});
+
+		this.showView();
 
 	}
 

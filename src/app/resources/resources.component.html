@@ -14,6 +14,9 @@
 		<div class="col-10">
 			<h1 class="display-4">Resources</h1>
 		</div>
+
+		<flash-messages></flash-messages>
+
 		<div class="col-2">
 			<div class="btn-group">
 				<button (click)="showEdit()" class="btn btn-outline-primary">
@@ -73,10 +76,7 @@
 		<div class="col-2">
 			<div class="btn-group">
 				<button (click)="showView()" class="btn btn-outline-primary">
-					View
-				</button>
-				<button (click)="showAdd()" class="btn btn-outline-primary">
-					Add
+					Return
 				</button>
 			</div>
 		</div>
@@ -136,10 +136,7 @@
 		<div class="col-2">
 			<div class="btn-group">
 				<button (click)="showView()" class="btn btn-outline-primary">
-					View
-				</button>
-				<button (click)="showEdit()" class="btn btn-outline-primary">
-					Edit
+					Return
 				</button>
 			</div>
 		</div>
@@ -159,7 +156,7 @@
 
 			<label class="col-3">Resource Branch</label>
 			<div class="col-9">
-				<button type="button" class="btn btn-sm" (click)="selectBranch('FLL Jr')" [ngClass]="{'btn-outline-success': !isBranch('FLL Jr'), 'btn-success': isBranch('FLL Jr')}">
+				<button type="button" class="btn btn-sm" (click)="selectBranch('FLLJr')" [ngClass]="{'btn-outline-success': !isBranch('FLL Jr'), 'btn-success': isBranch('FLL Jr')}">
 					FLL Jr
 				</button>
 				<button type="button" class="btn btn-sm" (click)="selectBranch('FLL')" [ngClass]="{'btn-outline-danger': !isBranch('FLL'), 'btn-danger': isBranch('FLL')}">

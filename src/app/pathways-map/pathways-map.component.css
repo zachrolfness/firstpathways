@@ -8,3 +8,43 @@ ngui-map {
   display: inline-block;
   padding-left: 15px;
 }
+.FRC{
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color:#009cd7;
+  border: 2px solid white;
+  color:white;
+  font-size:9px;
+  text-align:center;
+}
+.FTC{
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color:#f57e25;
+  border: 2px solid white;
+  color:white;
+  font-size:9px;
+  text-align:center;
+}
+.FLL{
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color:#ed1c24;
+  border: 2px solid white;
+  color:white;
+  font-size:9px;
+  text-align:center;
+}
+.FLLJr{
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color:#00a651;
+  border: 2px solid white;
+  color:white;
+  font-size:9px;
+  text-align:center;
+}

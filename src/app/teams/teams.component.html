@@ -148,7 +148,7 @@
 
 			<label class="col-3">Resource Branch</label>
 			<div class="col-9">
-					<button type="button" class="btn btn-sm" (click)="selectBranch('FLL Jr')" [ngClass]="{'flljrbtn': isBranch('FLL Jr'), 'btn-success': isBranch('FLL Jr')}">
+					<button type="button" class="btn btn-sm" (click)="selectBranch('FLLJr')" [ngClass]="{'flljrbtn': isBranch('FLLJr'), 'btn-success': isBranch('FLLJr')}">
 						FLL Jr.
 					</button>
 					<button type="button" class="btn btn-sm" (click)="selectBranch('FLL')" [ngClass]="{'fllbtn': isBranch('FLL'), 'btn-danger': isBranch('FLL')}">
@@ -161,7 +161,7 @@
 						FRC
 					</button>
 					<br/>
-				<small id="branchHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+				<!-- <small id="branchHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
 			</div>
 
 			<br />
@@ -170,6 +170,13 @@
 				<label for="school" class="col-3 col-form-label">Team School</label>
 				<div class="col-9">
 					<input type="text" id="school" class="form-control" [(ngModel)]="team.school">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="school" class="col-3 col-form-label">Team Zip Code</label>
+				<div class="col-9">
+					<input type="text" id="school" class="form-control" [(ngModel)]="zipcode">
 				</div>
 			</div>
 
