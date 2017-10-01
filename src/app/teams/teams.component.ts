@@ -8,6 +8,10 @@ import { BlueAllianceService } from '../blue-alliance-service/blue-alliance.serv
 
 import { Team } from '../data-models/team';
 
+import { NguiMapModule} from '@ngui/map';
+import {} from '@types/googlemaps';
+
+
 @Component({
   selector: 'app-teams',
   templateUrl: './teams.component.html',
@@ -22,6 +26,8 @@ export class TeamsComponent implements OnInit {
 		school: ''
 	};
 
+  zipcode: any;
+
 	UserTeams: FirebaseListObservable<any[]>;
 	PathwayTeams: FirebaseListObservable<any[]>;
 
@@ -33,13 +39,26 @@ export class TeamsComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.blueApi.getTeam(1165).then(console.log);
+		this.blueApi.getTeam(1477).then(console.log);
 
 		// this.PathwayTeams = this.db.getTeams();
 		this.auth.getUID().then((uid: string) => {
 			this.UserTeams = this.db.getUserTeams(uid);
 		});
 	}
+
+  geocode(address){
+    return new Promise(function(resolve,reject){
+			var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            resolve(results);
+          } else {
+            this.lat = 0;
+          }
+        });
+      });
+  }
 
 	showView() {
 		this.view = true;
@@ -70,7 +89,7 @@ export class TeamsComponent implements OnInit {
 			return '#f57e25';
 		} else if(branch == 'FLL') {
 			return '#ed1c24';
-		} else if(branch == 'FLL Jr') {
+		} else if(branch == 'FLLJr') {
 			return '#00a651';
 		}
 	}
@@ -84,21 +103,35 @@ export class TeamsComponent implements OnInit {
 	}
 
 	addTeam() {
-		this.UserTeams.update(this.team.branch + ':' + this.team.number, true);
+    this.geocode(this.team.school + " " + this.zipcode).then(results => {
+      console.log(this.zipcode)
+		    this.UserTeams.update(this.team.branch + ':' + this.team.number, {
+			       Name: this.team.name,
+			       School: this.team.school,
+             Branch: this.team.branch,
+             Number: this.team.number,
+             Lat: results[0].geometry.location.lat(),
+             Lng: results[0].geometry.location.lng()
+		    });
 
-		this.db.getTeams().update(this.team.branch + ':' + this.team.number, {
-			Name: this.team.name,
-			School: this.team.school
-		});
+		    this.db.getTeams().update(this.team.branch + ':' + this.team.number, {
+			       Name: this.team.name,
+			       School: this.team.school,
+             Branch: this.team.branch,
+             Number: this.team.number,
+             Lat: results[0].geometry.location.lat(),
+             Lng: results[0].geometry.location.lng()
+		    });
 
-		this.team = {
-			name: '',
-			number: 0,
-			branch: '',
-			school: ''
-		};
+		    this.team = {
+			       name: '',
+			       number: 0,
+			       branch: '',
+			       school: ''
+		  };
 
-		this.showView();
+		  this.showView();
+    });
 	}
 
 	saveTeam(key: string, name: string, number: number, branch: string, school: string) {

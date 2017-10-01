@@ -5,6 +5,7 @@ import { FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/d
 import { AuthService } from '../auth-service/auth.service';
 import { DatabaseService } from '../database-service/database.service';
 import { StorageService } from '../storage-service/storage.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 import { Team } from '../data-models/team';
 
@@ -22,10 +23,12 @@ export class ProfileComponent implements OnInit {
 	constructor(
 		public auth: AuthService,
 		private db: DatabaseService,
-		private storage: StorageService
+		private storage: StorageService,
+		private _flashMessagesService: FlashMessagesService
 	) {}
 
 	ngOnInit() {
+
 		this.auth.getUID().then((uid: string) => {
 			this.User = this.db.getUser(uid);
 		});

@@ -3,13 +3,12 @@
   margin: 5px;
 }
 .txtsearch{
-  width: 60%;
+  width: 50%;
   float:left;
   padding-top: 7px;
   padding-right: 16px;
 }
 .tagsearch{
-  width: 40%;
   float:left;
 }
 .inptsearch{
@@ -29,7 +28,6 @@
   min-height: 32px;
   cursor: text;
   border-bottom: 2px solid #efefef;
-  width: 85%;
   margin-right:15px;
   float:left;
 }

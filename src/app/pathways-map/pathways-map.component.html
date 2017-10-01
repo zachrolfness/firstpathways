@@ -1,16 +1,18 @@
 <form class="form-group form-inline my-2 my-lg-0" style="padding-left: 20px">
   <input name="searchbox" class="form-control mr-sm-2" type="text" placeholder="Enter your City" [(ngModel)]="searchbox">
-  <button class="btn btn-outline-success my-2 my-sm-0" (click)="updateCenter()">Search for Mentors</button>
+  <button class="btn btn-outline-success my-2 my-sm-0" (click)="updateCenter()">Search for Pathways</button>
 </form>
 
 <div  class="container-fluid" style="padding-right=0px;padding-left=0px;margin-right: 0px;margin-left: 0px;padding-left: 0px;padding-right: 0px;">
   <div class="map" [style.width.%] = "map">
     <ngui-map [zoom]="zoom" [center]="mapcenter">
-      <marker *ngFor="let user of users" [position]=user.getLocation()
-      [icon] = "user.getImage()"
-      (click) = "markerClick($event,user)"
-       >
-      </marker>
+      <custom-marker *ngFor="let user of mapTeams" [position]="[user.getLat(), user.getLng()]">
+        <div class="custom-icon">
+          <div [ngClass]="user.getBranch()">
+            {{user.getNumber()}}
+          </div>
+        </div>
+      </custom-marker>
     </ngui-map>
   </div>
 </div>

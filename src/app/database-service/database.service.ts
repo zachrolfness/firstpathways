@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+ import { Injectable } from '@angular/core';
 
 import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
 
@@ -29,6 +29,10 @@ export class DatabaseService {
 		return this.db.list('/Users/' + uid + '/PathwayTeams');
 	}
 
+  public getMapUsers(): FirebaseListObservable<any[]>{
+    return this.db.list('/PathwayTeams');
+  }
+
 	public getResourcesByUser(uid: string): FirebaseListObservable<any[]> {
 		return this.db.list('/Resources', {
 			query: {
@@ -52,22 +56,34 @@ export class DatabaseService {
 		});
 	}
 
-	public searchResources(start, end): FirebaseListObservable<any[]> {
+	public searchResources(offset, startKey?): FirebaseListObservable<any[]> {
 		return this.db.list('/Resources/', {
 			query: {
-				orderByChild: 'Name',
-				limitTo: 10,
-				startAt: start,
-				endAt: end
+				orderByKey: true,
+				//orderByChild: 'Name',
+				startAt: startKey,
+				limitToFirst: offset+1
 			}
 		});
 	}
+
+	public searchName(search): FirebaseListObservable<any[]> {
+		return this.db.list('/Resources', {
+			query: {
+				orderByChild: 'Name',
+				equalTo: search,
+				limitTo: 2
+			}
+		});
+	}
+
 
 	public searchTag(equalTo): FirebaseListObservable<any[]> {
 		return this.db.list('/Resources', {
 			query: {
 				orderByChild: 'Tags/0',
-				equalTo: equalTo
+				equalTo: equalTo,
+				limitTo: 2
 			}
 		});
 	}
