@@ -28,7 +28,7 @@ export class PathwaysMapComponent implements OnInit {
   ngOnInit() {
 
     this.map = "100";
-    this.mapcenter = "USA";
+    this.mapcenter = "United States of America";
     this.zoom = 5;
     this.mapTeams = this.getMarkers();
   }

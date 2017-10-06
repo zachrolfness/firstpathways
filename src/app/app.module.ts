@@ -55,7 +55,7 @@ firebase.initializeApp(environment.firebase);
 		TagInputModule,
 		BrowserAnimationsModule,
 		FlashMessagesModule,
-		NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyCkgR8jyI8fjSdFd2E3F7UZHhwWfGsp270'})
+		NguiMapModule.forRoot({apiUrl: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCkgR8jyI8fjSdFd2E3F7UZHhwWfGsp270'})
 	],
 	declarations: [
 		AppComponent,

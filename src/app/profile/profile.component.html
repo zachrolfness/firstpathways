@@ -9,7 +9,7 @@
 <div class="col-sm-9 col-md-10 pt-3" style="width:80%">
 	<div class="row">
 		<div class="col-md-10">
-			<h1 #name class="display-4">{{(User | async)?.Name}}</h1>
+
 		</div>
 		<div class="col-2">
 			<button (click)="toggleEdit()" class="btn btn-outline-primary">
@@ -24,7 +24,7 @@
 
 	<br/>
 
-	<div class="col-md-5">
+	<div class="col-md-4">
 		<div *ngIf="!edit">
 			<img [src]="(User | async)?.PhotoURL" alt="Display Photo" class="profilephoto">
 		</div>
@@ -42,8 +42,10 @@
 	</div>
 
 	<div class="col-md-7">
+		<h1 #name class="display-4">{{(User | async)?.Name}}</h1>
 
-		<h4>Bio</h4>
+		<div style="padding-left: 10px;">
+		<h4><strong>Bio:</strong></h4>
 
 		<div *ngIf="!edit">
 			<p>{{(User | async)?.Bio}}</p>
@@ -53,7 +55,7 @@
 			</textarea>
 		</div>
 
-		<h4>Website</h4>
+		<h4><strong>Website:</strong></h4>
 
 		<div *ngIf="!edit">
 			<a [href]="(User | async)?.Website" target="_blank">
@@ -62,6 +64,7 @@
 		</div>
 		<div *ngIf="edit">
 			<input #website type="text" id="website" class="form-control" [ngModel]="(User | async)?.Website" (blur)="saveUserWebsite(website.value)">
+		</div>
 		</div>
 
 	</div>

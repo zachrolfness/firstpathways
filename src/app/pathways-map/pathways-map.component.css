@@ -17,6 +17,7 @@ ngui-map {
   color:white;
   font-size:9px;
   text-align:center;
+  padding-top: 9px;
 }
 .FTC{
   width: 32px;
@@ -27,6 +28,7 @@ ngui-map {
   color:white;
   font-size:9px;
   text-align:center;
+  padding-top: 9px;
 }
 .FLL{
   width: 32px;
@@ -37,6 +39,7 @@ ngui-map {
   color:white;
   font-size:9px;
   text-align:center;
+  padding-top: 9px;
 }
 .FLLJr{
   width: 32px;
@@ -47,4 +50,5 @@ ngui-map {
   color:white;
   font-size:9px;
   text-align:center;
+  padding-top: 9px;
 }
