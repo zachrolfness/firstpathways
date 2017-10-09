@@ -27,19 +27,13 @@ export class AuthService {
 				this.isLoggedIn = false;
 				this.uid = null;
 			}
-			console.log(this.isLoggedIn);
+			console.log('Logged in: ', this.isLoggedIn);
 		});
 	}
 
 	public getUID(): Promise<string> {
 		return new Promise((resolve, reject) => {
-			this.afAuth.authState.subscribe((auth) => {
-				if(auth) {
-					resolve(auth.uid);
-				} else {
-					resolve(null);
-				}
-			});
+			this.afAuth.authState.subscribe((auth) => auth? resolve(auth.uid): resolve(null));
 		});
 	}
 
@@ -63,5 +57,13 @@ export class AuthService {
 
 	public logout() {
 		this.afAuth.auth.signOut();
+	}
+
+	public isAdmin(): Promise<boolean> {
+		return new Promise((resolve, reject) => {
+			this.getUID().then((uid) => {
+				this.db.object('/Users/' + uid).subscribe((User) => resolve(User.Admin));
+			});
+		});
 	}
 }

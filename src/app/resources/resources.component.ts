@@ -99,29 +99,46 @@ export class ResourcesComponent implements OnInit {
 	}
 
 	addResource() {
-		 this.storage.uploadResource(this.auth.uid, this.file)
-			.then((downloadURL: string) => {
-
-				this.Resources.push({
-					Name: this.resource.name,
-					Branch: this.resource.branch,
-					Description: this.resource.description,
-					User: this.uid,
-					URL: downloadURL,
-					Tags: this.resource.tags
-				});
-
-				this.resource = {
-					name: '',
-					branch: '',
-					description: '',
-					url: '',
-					tags: []
-				};
-
-				this.file = null;
-				this.showView();
+		if(this.resource.name && this.resource.branch && this.resource.description && this.uid) {
+			this.Resources.push({
+				Name: this.resource.name,
+				Branch: this.resource.branch,
+				Description: this.resource.description,
+				User: this.uid,
+				Approved: false,
+				Sanitized: false
+				// URL: downloadURL,
+				// Tags: this.resource.tags
 			});
+		} else {
+			console.warn('One or more of the fields are empty.')
+		}
+
+		//  this.storage.uploadResource(this.auth.uid, this.file)
+		// 	.then((downloadURL: string) => {
+		 //
+		// 		this.Resources.push({
+		// 			Name: this.resource.name,
+		// 			Branch: this.resource.branch,
+		// 			Description: this.resource.description,
+		// 			User: this.uid,
+		// 			URL: downloadURL,
+		//			Tags: this.resource.tags,
+		//			Approved: false,
+		//			Sanitized: false
+		// 		});
+		//
+		//		this.resource = {
+		//			name: '',
+		//			branch: '',
+		//			description: '',
+		//			url: '',
+		//			tags: []
+		//		};
+		//
+		// 		this.file = null;
+		// 		this.showView();
+		// 	});
 	}
 
 	saveResource(key: string, name: string, branch: string, description: string) {

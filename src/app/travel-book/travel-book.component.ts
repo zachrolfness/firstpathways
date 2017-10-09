@@ -3,6 +3,7 @@ import { NgModel } from '@angular/forms';
 
 import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
 
+import { AuthService } from '../auth-service/auth.service';
 import { DatabaseService } from '../database-service/database.service';
 import { TagsService } from '../tags-service/tags.service';
 
@@ -11,7 +12,7 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
-import * as _ from "lodash";
+import * as _ from 'lodash';
 
 @Component({
 	selector: 'app-travel-book',
@@ -39,11 +40,18 @@ export class TravelBookComponent implements OnInit {
 	equalTo = new Subject();
 	key = new Subject();
 
-	constructor(private db: DatabaseService, private ts: TagsService) {}
+	isAdmin: boolean;
+
+	constructor(public auth: AuthService, private db: DatabaseService, private ts: TagsService) {}
 
 	ngOnInit() {
 		this.tagUpdate(0);
 		this.getResources();
+
+		this.auth.isAdmin().then((isAdmin) => {
+			this.isAdmin = isAdmin;
+			console.log('Is Admin: ', isAdmin);
+		});
 
 		this.db.searchResources(this.offset, this.key)
 			.subscribe((resources) => {

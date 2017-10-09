@@ -67,7 +67,7 @@
 	LIMIT TO ONLY SHOWING TEN RESOURCES PER PAGE BASED ON THE USER SEARCH -->
 
 	<div *ngFor="let resource of resources">
-		<resource-card [resource]="resource"></resource-card>
+		<resource-card [resource]="resource" [admin]="isAdmin"></resource-card>
 	</div>
 
 	<!-- <resource-card></resource-card> -->
@@ -77,8 +77,12 @@
 		No Resources
 	</div>
 
-	<button (click)='prevPage()' [disabled] = "!prevKeys?.length"> Prev </button>
-	<button (click)='nextPage()' [disabled] = "!nextKey"> Next </button>
+	<button (click)='prevPage()' [disabled]="!prevKeys?.length" class="btn btn-outline-primary">
+		Prev
+	</button>
+	<button (click)='nextPage()' [disabled]="!nextKey" class="btn btn-outline-primary">
+		Next
+	</button>
 
 
 

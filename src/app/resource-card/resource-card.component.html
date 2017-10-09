@@ -8,7 +8,25 @@
 		<div class="cardstacked">
 			<div class="cardtitle"  [ngClass]="getBadgeColor(resource.Branch)">
 				<!-- color of the title must be based on branch -->
-				{{resource.Name}}
+				<div class="row">
+					<div class="col-7">
+						{{resource.Name}}
+					</div>
+					<div class="col-3">
+						<div *ngIf="isAdmin">
+							<div [hidden]="!resource.Approved">
+								<button (click)="toggleApproved()" type="button" class="btn btn-success">
+									Approved
+								</button>
+							</div>
+							<div [hidden]="resource.Approved">
+								<button (click)="toggleApproved()" type="button" class="btn btn-danger">
+									Not Approved
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div class="cardcontent">

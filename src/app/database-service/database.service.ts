@@ -44,9 +44,7 @@ export class DatabaseService {
 
 	public getUserName(uid: string): Promise<string> {
 		return new Promise((resolve, reject) => {
-			this.db.object('/Users/' + uid + '/Name').subscribe((snapshot) => {
-				resolve(snapshot.$value);
-			});
+			this.db.object('/Users/' + uid + '/Name').subscribe((snapshot) => resolve(snapshot.$value));
 		})
 	}
 
@@ -62,7 +60,7 @@ export class DatabaseService {
 				orderByKey: true,
 				//orderByChild: 'Name',
 				startAt: startKey,
-				limitToFirst: offset+1
+				limitToFirst: offset + 1
 			}
 		});
 	}

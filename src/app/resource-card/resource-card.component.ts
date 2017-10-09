@@ -21,6 +21,7 @@ import { DatabaseService } from '../database-service/database.service';
 export class ResourceCardComponent implements OnInit {
 
 	@Input() resource;
+	@Input('admin') isAdmin;
 
 	username: string;
 
@@ -49,5 +50,14 @@ export class ResourceCardComponent implements OnInit {
 			case 'FLL Jr': return 'flljrcolor';
 			default: return 'badge-primary';
 		}
+	}
+
+	toggleApproved() {
+		this.resource.Approved = !this.resource.Approved;
+		this.saveResource();
+	}
+
+	saveResource() {
+		// this.Resources.update(this.resource.$key, this.resource);
 	}
 }
